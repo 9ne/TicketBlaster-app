@@ -3,6 +3,10 @@ const validator = require('validator');
 const bcrypt = require('bcryptjs');
 
 const userSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: [true, 'Must have a full name']
+  },
   email: {
     type: String,
     required: [true, 'Email is required'],
@@ -14,6 +18,14 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Password is required'],
     minlength: [8, 'Password must be at least 8 characters']
+  },
+  profilePicture: {
+    type: String, 
+  },
+  role: {
+    type: String,
+    enum: ['user', 'administrator'],
+    default: 'user'
   }
 });
 

@@ -1,7 +1,6 @@
 const User = require('../../../pkg/user/userSchema');
 const jwt = require('jsonwebtoken');
 const bcryptjs = require('bcryptjs');
-const { promisify } = require('util');
 
 const signUp = async (req, res) => {
 
@@ -40,8 +39,9 @@ const signUp = async (req, res) => {
 const login = async (req, res) => {
   
   try {
+
     const { email, password } = req.body;
-    console.log(email, password);
+
     if (!email || !password) return res.status(400).send('Please provide email and password.');
 
     const user = await User.findOne({ email });
@@ -75,26 +75,7 @@ const login = async (req, res) => {
   }
 };
 
-const protect = async (req, res, next) => {
-
-  let token;
-  if(req.headers.authorization) {
-    token = req.headers.authorization.split(' ')[1];
-  }
-  if(!token) return res.status(500).send('You are not logged in');
-
-  const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
-  console.log(decoded);
-
-  const userTrue = await User.findById(decoded.id);
-  if(!userTrue) return res.status(401).send('User doesn\'t exist!');
-  
-  next();
-};
-
-
 module.exports = {
   signUp,
   login,
-  protect
 }
