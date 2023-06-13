@@ -56,7 +56,7 @@ const createEvent = async (req, res) => {
 
 const updateEvent = async (req, res) => {
   try {
-    const update = await Event.findByIdAndUpdate(req.param.id, req.body, {
+    const update = await Event.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true
     });
