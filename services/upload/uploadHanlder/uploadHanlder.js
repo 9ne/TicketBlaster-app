@@ -5,14 +5,14 @@ const imageId = uuid.v4();
 
 const multerStorage = multer.diskStorage({
   destination: (req, file, callback) => {
-    callback(null, 'public/images')
+    callback(null, `${__dirname}/../../../public/images/${req.params.storage}`)
   },  filename: (req, file, callback) => {
     const type = file.mimetype.split('/')[1];
     callback(null, `image-${imageId}-${Date.now()}.${type}`);
   }
 });
 
-const multerFilter = (req, res, callback) => {
+const multerFilter = (req, file, callback) => {
   if(file.mimetype.startsWith('image')) {
     callback(null, true)
   } else {

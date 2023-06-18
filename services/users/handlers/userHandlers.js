@@ -38,6 +38,11 @@ const getOneUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
   try {
+    
+    if(req.file) {
+      req.body.image = req.file.filename;
+    };
+
     const update = await User.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true
