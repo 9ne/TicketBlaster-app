@@ -1,11 +1,10 @@
 import React from 'react';
+import { Navbar } from './Navbar';
 
-function App() {
+export const App = () => {
   return (
-    <div id="App">
-      <h1>Ticket Blaster</h1>
+    <div id='app'>
+      <Navbar/>
     </div>
   );
-}
-
-export default App;
+};
