@@ -9,23 +9,21 @@ export const Navbar = () => {
   return (
     <div id="header">
       <div className="header-flex">
-        <nav>
-          <ul className="left-side-flex">
-            <li><Link to='/'><img src={logo} alt="logo" className="logo" /></Link></li>
-            <li><Link to='/'>Musical Concerts</Link></li>
-            <li><Link to='/'>Stand-up Comedy</Link></li>
-          </ul>
-        </nav>
-        <div>
-          <div>
-            <ul className="right-side-flex">
-              <input type="search" name="keyword" id="keyword" placeholder="Search" />
-              <li><Link to='/'>Log in</Link></li>
-              <li><Link to='/'>Create Account</Link></li>
-              <li><Link to='/'><i class="fa-solid fa-cart-shopping"></i></Link></li>
-              <li><Link to='/'></Link><i class="fa-solid fa-user"></i></li>
+        <div className="left-side-flex">
+            <ul>
+              <li><Link to='/'><img src={logo} alt="logo" className="logo" /></Link></li>
+              <li><Link to='/' className="style-hover">Musical Concerts</Link></li>
+              <li><Link to='/'className="style-hover">Stand-up Comedy</Link></li>
             </ul>
-          </div>
+        </div>
+        <div className="right-side-flex">
+          <ul>
+            <input type="search" name="keyword" id="keyword" placeholder="Search.." className="search-bar" />
+            <li><Link to='/login' className="log-in">Log in</Link></li>
+            <li><Link to='/create-account' className="create-account">Create Account</Link></li>
+            {/* <li><Link to='/'><i class="fa-solid fa-cart-shopping"></i></Link></li>
+            <li><Link to='/'><i class="fa-solid fa-user"></i></Link></li> */}
+          </ul>
         </div>
       </div>
     </div>
