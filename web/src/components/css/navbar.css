@@ -71,14 +71,15 @@ ul li a {
 
 .log-in {
   display: inline-block;
+  font-size: 16px;
   border-radius: 20px;
   border: 1px solid #FF48AB;
   background-color: #FF48AB;
   color: #000;
-  font-weight: 700; 
+  font-weight: bold; 
   height: 42px;
   width: 102px;
-  padding-top: .7rem;
+  padding-top: .5rem;
   transition: all ease 0.2s;
 }
 
@@ -93,10 +94,10 @@ ul li a {
   border-radius: 20px;
   background-color: #000B;
   color: #fff;
-  font-weight: 500; 
+  font-size: 16px;
   height: 42px;
   width: 156px;
-  padding-top: .7rem; 
+  padding-top: .5rem; 
   transition: all ease 0.2s;
 }
 
