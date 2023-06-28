@@ -1,9 +1,9 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { Navbar } from './Navbar';
-import { Footer } from './Footer';
-import { Login } from './Login';
-import { Createaccount } from './Createaccound';
+import { Navbar } from './navbar/Navbar';
+import { Footer } from './footer/Footer';
+import { Login } from './login/Login';
+import { Createaccount } from './create-account/Createaccound';
 
 export const App = () => {
   return (
