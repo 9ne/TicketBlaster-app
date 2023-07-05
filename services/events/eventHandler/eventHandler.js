@@ -56,6 +56,9 @@ const createEvent = async (req, res) => {
 
 const updateEvent = async (req, res) => {
   try {
+    if(req.file) {
+      req.body.image = req.file.filename;
+    };
     const update = await Event.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true

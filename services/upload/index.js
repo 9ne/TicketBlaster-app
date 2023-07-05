@@ -10,7 +10,7 @@ api.use(express.json());
 api.use(express.urlencoded({ extended: true }));
 api.use(express.static('public'));
 
-api.post('/api/v1/upload/:storage', multer.uploadImage, (req, res) => {res.status(200).json({
+api.post('/api/v1/upload', multer.uploadImage, (req, res) => {res.status(200).json({
   status: 'Successfully uploaded image'
 })});
 

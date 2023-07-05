@@ -2,8 +2,11 @@ const express = require('express');
 const eventHandler = require('./eventHandler/eventHandler');
 const multer = require('../upload/uploadHanlder/uploadHanlder');
 const DB = require('../../pkg/db/index');
+const cors = require('cors');
 
 const api = express();
+
+api.use(cors());
 
 DB.init();
 

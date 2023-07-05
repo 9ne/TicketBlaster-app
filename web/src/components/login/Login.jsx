@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './login-style/login.css'
+import './login-style/login.css';
 
 
 export const Login = () => {
@@ -15,7 +15,7 @@ export const Login = () => {
           <label htmlFor="password" className="label-login login-label-style">Password</label>
           <input type="password" name="password" id="password" className="input-login login-input-style" required />
           <div className='flex-login'>
-            <Link to='/' className='link-forgot'>Forgot Password?</Link>
+            <Link to='/forgot-password' className='link-forgot'>Forgot Password?</Link>
             <button className='log-in-button'>Log in</button>
           </div>
           <Link to='/create-account' className='link-dont'>Don't have account?</Link>
