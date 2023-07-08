@@ -20,6 +20,10 @@ const eventSchema = new mongoose.Schema({
   image: {
     type: String
   },
+  genre: {
+    type: String,
+    enum: ['rock', 'metal', 'heavy metal', 'dance', 'electronic', 'comedy']
+  },
   price: {
     type: String
   }
