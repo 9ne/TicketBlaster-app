@@ -27,7 +27,6 @@ const getOneUser = async (req, res) => {
         oneUser
       }
     });
-    // console.log(oneUser);
   } catch(err) {
     res.status(404).json({
       status: 'Fail',

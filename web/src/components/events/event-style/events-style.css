@@ -1,0 +1,72 @@
+.events-hero {
+  max-width: 86.7rem;
+  margin: 3.57rem auto;
+}
+
+.event-hero-content {
+  width: 100%;
+  position: relative;
+}
+
+.image-hero {
+  width: 100%;
+  height: 33.142rem;
+  border-radius: 20px;
+  object-fit: cover;
+  position: relative;
+}
+
+.inside-hero-img-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3.57rem;
+  position: absolute;
+  top: 60%;
+}
+
+.inside-hero-img-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.inside-hero-img-left-flex {
+  display: flex;
+}
+
+.inside-hero-img-left .hero-heading {
+  font-size: 2.857rem;
+  color: #fff;
+}
+
+.inside-hero-img-left-flex p {
+  font-size: 2rem;
+  color: #fff;
+  opacity: 70%;
+}
+
+.inside-hero-img-left-flex .hero-date {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.inside-hero-img-right .get-tickets-btn-hero {
+  display: inline-block;
+  font-size: 1.3rem;
+  padding: 0.5rem 0 1.8rem 2.5rem;
+  font-weight: bold;
+  width: 12rem;
+  height: 3.07rem;
+  background-color: #fff;
+  color: #000;
+  border-radius: 20px;
+  border: 2px solid #fff;
+  position: absolute;
+  left: 186%;
+  transition: all ease 0.2s;
+}
+
+.inside-hero-img-right .get-tickets-btn-hero:hover {
+  border: 2px solid #FF48AB;
+}
+

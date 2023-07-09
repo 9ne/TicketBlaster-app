@@ -3,6 +3,8 @@ const Event = require('../../../pkg/events/eventSchema');
 const getAllEvents = async (req, res) => {
   try {
     const event = await Event.find();
+    // console.log(event);
+    event.sort((a, b) => new Date(a.date) - new Date(b.date));
     res.status(200).json({
       status: 'success',
       data: {
