@@ -5,6 +5,7 @@ const getAllEvents = async (req, res) => {
     const event = await Event.find();
     // console.log(event);
     event.sort((a, b) => new Date(a.date) - new Date(b.date));
+    console.log(new Date());
     res.status(200).json({
       status: 'success',
       data: {

@@ -20,7 +20,7 @@ export const App = () => {
           <Route path='/create-account' element={<Createaccount/>}></Route>
         </Routes>
       </div>
-      {/* <Footer/> */}
+      <Footer/>
     </div>
   );
 };

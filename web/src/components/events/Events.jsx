@@ -45,6 +45,65 @@ export const Events = () => {
           </div>
         )}
       </div>
+      <div className="events-main">
+        <div className="events">
+          <h2 className="events-heading">Musical Concerts</h2>
+          <div>
+            {events && events
+              .filter(event => event.category === 'Musical Concert')
+              .slice(1)
+              .map((event, i) => {
+                return(
+                  <div key={i} className="event-flex">
+                    <div className="event-flex-left">
+                      <img src={`/images/${event.image}`} alt="photo" className="event-image" />
+                    </div>
+                    <div className="event-flex-right">
+                      <p className="event-name">{event.name}</p>
+                      <p className="event-date">{event.date}</p>
+                      <p className="event-details">{event.eventDetails}</p>
+                      <div className="event-location-tickets-flex">
+                        <p className='event-location'>{event.location}</p>
+                        <Link to="/" className="event-location-link">Get Tickets</Link>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })
+              }
+          </div>
+          <Link to="/" className="link-to-all-events">See All Musical Concerts</Link>
+        </div>
+        <div className="events">
+          <h2 className="events-heading">Stand-up Comedy</h2>
+          <div>
+            {events && events
+              .filter(event => event.category === 'Stand-up Comedy')
+              .slice(1)
+              .map((event, i) => {
+                return(
+                  <div key={i} className="event-flex">
+                    <div className="event-flex-left">
+                      <img src={`/images/${event.image}`} alt="photo" className="event-image" />
+                    </div>
+                    <div className="event-flex-right">
+                      <p className="event-name">{event.name}</p>
+                      <p className="event-date">{event.date}</p>
+                      <p className="event-details">{event.eventDetails}</p>
+                      <div className="event-location-tickets-flex">
+                        <p className='event-location'>{event.location}</p>
+                        <Link to="/" className="event-location-link">Get Tickets</Link>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })
+              }
+          </div>
+          <Link to="/" className="link-to-all-events">See All Musical Concerts</Link>
+        </div>
+        
+      </div>
     </div>
   )
 };
