@@ -29,10 +29,6 @@
   transition: all ease 0.2s;
 }
 
-#footer a:hover {
-  color: #FF48AB;
-}
-
 #footer .copy-right-text {
   color: #d3d3d3;
   margin-top: 1.4rem;

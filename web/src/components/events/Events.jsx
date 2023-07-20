@@ -53,6 +53,7 @@ export const Events = () => {
               .filter(event => event.category === 'Musical Concert')
               .slice(1)
               .map((event, i) => {
+                if (i >= 5) return null;
                 return(
                   <div key={i} className="event-flex">
                     <div className="event-flex-left">
@@ -64,7 +65,7 @@ export const Events = () => {
                       <p className="event-details">{event.eventDetails}</p>
                       <div className="event-location-tickets-flex">
                         <p className='event-location'>{event.location}</p>
-                        <Link to="/" className="event-location-link">Get Tickets</Link>
+                        <Link to="/musical-concerts" className="event-location-link">Get Tickets</Link>
                       </div>
                     </div>
                   </div>
@@ -72,7 +73,7 @@ export const Events = () => {
               })
               }
           </div>
-          <Link to="/" className="link-to-all-events">See All Musical Concerts</Link>
+          <Link to="/musical-concerts" className="link-to-all-events">See All Musical Concerts</Link>
         </div>
         <div className="events">
           <h2 className="events-heading">Stand-up Comedy</h2>
@@ -81,6 +82,7 @@ export const Events = () => {
               .filter(event => event.category === 'Stand-up Comedy')
               .slice(1)
               .map((event, i) => {
+                if (i >= 5) return null;
                 return(
                   <div key={i} className="event-flex">
                     <div className="event-flex-left">

@@ -55,6 +55,10 @@ ul li a {
   transition: all ease 0.2s;
 }
 
+.style-hover-focus {
+  color: #FF48AB;
+}
+
 .style-hover:hover {
   color: #FF48AB;
 }
