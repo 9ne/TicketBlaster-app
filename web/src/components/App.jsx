@@ -24,7 +24,7 @@ export const App = () => {
           <Route path='/stand-up-comedy' element={<StandUp/>}></Route>
         </Routes>
       </div>
-      {/* <Footer/> */}
+      <Footer/>
     </div>
   );
 };

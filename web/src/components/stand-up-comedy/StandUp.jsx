@@ -29,7 +29,7 @@ export const StandUp = () => {
 
   return (
     <div id="stand-up-shows">
-      <h1 className="stand-up-heading">Musical Concerts</h1>
+      <h1 className="stand-up-heading">Stand-Up Comedy Shows</h1>
       <div className="stand-up-shows">
         <div className="shows">
           {standUp && standUp
