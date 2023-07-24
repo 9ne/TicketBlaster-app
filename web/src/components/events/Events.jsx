@@ -17,7 +17,6 @@ export const Events = () => {
     }
   };
 
-
   useEffect(() => {
     getEvents();
   }, []);
@@ -28,7 +27,7 @@ export const Events = () => {
         {events && events.length > 0 && (
           <div className="event-hero">
             <div className="event-hero-content">
-              <img src={`/images/${events[0].image}`} alt="image-hero"  className='image-hero'/>
+              <img src={`/images/${events[0].image}`} alt={events[0].name}  className='image-hero'/>
               <div className="inside-hero-img-content">
                 <div className="inside-hero-img-left">
                   <h2 className="hero-heading">{events[0].name}</h2>
@@ -38,7 +37,7 @@ export const Events = () => {
                   </div>
                 </div>
                 <div className="inside-hero-img-right">
-                  <Link to='/' className="get-tickets-btn-hero">Get Tickets</Link>
+                  <Link to={`/one-event/${events[0]._id}`} className="get-tickets-btn-hero">Get Tickets</Link>
                 </div>
               </div>
             </div>
@@ -57,7 +56,7 @@ export const Events = () => {
                 return(
                   <div key={i} className="event-flex">
                     <div className="event-flex-left">
-                      <img src={`/images/${event.image}`} alt="photo" className="event-image" />
+                      <img src={`/images/${event.image}`} alt={event.name} className="event-image" />
                     </div>
                     <div className="event-flex-right">
                       <p className="event-name">{event.name}</p>
@@ -65,7 +64,7 @@ export const Events = () => {
                       <p className="event-details">{event.eventDetails}</p>
                       <div className="event-location-tickets-flex">
                         <p className='event-location'>{event.location}</p>
-                        <Link to="/musical-concerts" className="event-location-link">Get Tickets</Link>
+                        <Link to={`/one-event/${event._id}`} className="event-location-link">Get Tickets</Link>
                       </div>
                     </div>
                   </div>
@@ -86,7 +85,7 @@ export const Events = () => {
                 return(
                   <div key={i} className="event-flex">
                     <div className="event-flex-left">
-                      <img src={`/images/${event.image}`} alt="photo" className="event-image" />
+                      <img src={`/images/${event.image}`} alt={event.name} className="event-image" />
                     </div>
                     <div className="event-flex-right">
                       <p className="event-name">{event.name}</p>
@@ -94,7 +93,7 @@ export const Events = () => {
                       <p className="event-details">{event.eventDetails}</p>
                       <div className="event-location-tickets-flex">
                         <p className='event-location'>{event.location}</p>
-                        <Link to="/" className="event-location-link">Get Tickets</Link>
+                        <Link to={`/one-event/${event._id}`} className="event-location-link">Get Tickets</Link>
                       </div>
                     </div>
                   </div>
@@ -102,7 +101,7 @@ export const Events = () => {
               })
               }
           </div>
-          <Link to="/" className="link-to-all-events">See All Musical Concerts</Link>
+          <Link to="/stand-up-comedy" className="link-to-all-events">See All Stand-up Comedy Shows</Link>
         </div>
         
       </div>

@@ -8,6 +8,7 @@ import { Forgot } from './forgot-password/Forgot';
 import { Createaccount } from './create-account/Createaccound';
 import { Concerts } from './musical-concerts/Concerts';
 import { StandUp } from './stand-up-comedy/StandUp';
+import { Event } from './oneEvent/Event';
 
 
 export const App = () => {
@@ -22,9 +23,10 @@ export const App = () => {
           <Route path='/create-account' element={<Createaccount/>}></Route>
           <Route path='/musical-concerts' element={<Concerts/>}></Route>
           <Route path='/stand-up-comedy' element={<StandUp/>}></Route>
+          <Route path='/one-event/:id' element={<Event/>}></Route>
         </Routes>
       </div>
-      <Footer/>
+      {/* <Footer/> */}
     </div>
   );
 };

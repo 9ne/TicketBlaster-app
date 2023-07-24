@@ -3,7 +3,7 @@ const dotenv = require('dotenv');
 
 dotenv.config({ path: `${__dirname}/../../config.env` });
 
-const DB = process.env.DATABASE.replace('<PASSWORD>', process.env.DATABASE_PASSWORD).replace('NAME', 'Ticket-Blaster');
+const DB = process.env.DATABASE.replace('<password>', process.env.DATABASE_PASSWORD).replace('<name>', 'Ticket-Blaster');
 
 const init = async () => {
   try {

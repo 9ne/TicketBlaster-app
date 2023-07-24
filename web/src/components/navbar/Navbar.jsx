@@ -17,7 +17,7 @@ useEffect(() => {
     setFocusStandUp('style-hover')
   } else {
     setFocusConcerts('');
-    setFocusStandUp('')
+    setFocusStandUp('');
   }
 }, [location.pathname]);
 
@@ -38,7 +38,7 @@ useEffect(() => {
               to='/stand-up-comedy'
               onClick={() => {
                 setFocusConcerts('');
-                setFocusStandUp('style-hover')
+                setFocusStandUp('style-hover');
               }}
               className={`${focusStandUp === 'style-hover' && 'style-hover-focus'}`}>Stand-up Comedy</Link></li>
             </ul>
