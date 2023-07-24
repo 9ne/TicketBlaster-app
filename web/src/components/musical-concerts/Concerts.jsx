@@ -39,7 +39,7 @@ export const Concerts = () => {
               return(
                 <div key={i} className="concert-flex">
                     <div className="concert-flex-left">
-                      <img src={`/images/${concert.image}`} alt="image" className="concert-image" />
+                      <img src={`/images/${concert.image}`} alt={concert.name} className="concert-image" />
                     </div>
                     <div className="concert-flex-right">
                       <p className="concert-name">{concert.name}</p>
@@ -47,7 +47,7 @@ export const Concerts = () => {
                       <p className="concert-details">{concert.eventDetails}</p>
                       <div className="concert-location-tickets-flex">
                         <p className='concert-location'>{concert.location}</p>
-                        <Link to="/musical-concerts" className="concert-location-link">Get Tickets</Link>
+                        <Link to={`/one-event/${concert._id}`}className="concert-location-link">Get Tickets</Link>
                       </div>
                     </div>
                 </div>
