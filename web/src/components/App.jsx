@@ -26,7 +26,7 @@ export const App = () => {
           <Route path='/one-event/:id' element={<Event/>}></Route>
         </Routes>
       </div>
-      {/* <Footer/> */}
+      <Footer/>
     </div>
   );
 };

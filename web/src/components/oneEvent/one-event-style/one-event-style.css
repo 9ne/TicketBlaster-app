@@ -1,6 +1,6 @@
 #event {
   max-width: 86.7rem;
-  margin: 3.57rem auto;
+  margin: 3.57rem auto 11.785rem;
 }
 
 .one-event-image {
@@ -105,6 +105,83 @@
 .tickets-form .button-add:hover {
   border: 2px solid #FF48AB;
 }
+
+/* Related Events */
+
+.related-heading {
+  font-size: 1.71rem;
+  font-weight: bold;
+  margin: 3.5rem 0 2.14rem 0;
+}
+
+.related-event-image {
+  width: 18.5rem;
+  height: 10.9rem;
+  object-fit: cover;
+  border-radius: 20px;
+}
+ .related-events-flex {
+  max-width: 40.928rem;
+  display: flex;
+  gap: 1.2rem;
+  margin-bottom: 3.42rem;
+ }
+
+ .related-event-location-tickets-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+ }
+
+ .related-event-name {
+  font-size: 1.71rem;
+  font-weight: bold;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+ }
+
+ .related-event-date {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color:#FF48AB;
+  margin-bottom: 2px;
+ }
+
+.related-event-details {
+  font-size: 0.9rem;
+  color: #393939;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+} 
+
+.related-event-location-link {
+  display: inline-block;
+  font-size: 1rem;
+  color: #fff;
+  width: 9.14rem;
+  height: 2.3rem;
+  padding: 0.2rem 0 1rem 1.8rem;
+  background-color: #000;
+  border-radius: 20px;
+  border: 2px solid #000;
+  transition: all ease 0.2s;
+}
+
+.related-event-location-link:hover {
+  border: 2px solid #FF48AB;
+}
+
+.related-events {
+  display: flex;
+  justify-content: space-between;
+}
+
 
 
 
