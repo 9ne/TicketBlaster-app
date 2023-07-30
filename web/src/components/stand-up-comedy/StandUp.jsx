@@ -39,7 +39,7 @@ export const StandUp = () => {
             return(
               <div key={i} className="stand-up-flex">
                 <div className="stand-up-flex-left">
-                  <img src={`/images/${standup.image}`} alt="photo" className="stand-up-show-image" />
+                  <img src={`/images/${standup.image}`} alt={`${standup.name}`} className="stand-up-show-image" />
                 </div>
                 <div className="stand-up-flex-right">
                   <p className="stand-up-name">{standup.name}</p>

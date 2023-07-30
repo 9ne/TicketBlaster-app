@@ -1,25 +1,77 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './login-style/login.css';
 
 
 export const Login = () => {
 
+  const initdata = {
+    email: '',
+    password: ''
+  };
+
+  const [data, setData] = useState(initdata);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  const dataChange = (e) => {
+    setData({
+      ...data,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem('loggedIn') === 'true';
+    setLoggedIn(isLoggedIn); 
+  }, []);
+
+  console.log(data);
+
+  const login = async () => {
+    console.log(data);
+    try {
+      const res = await axios.post('/api/v1/auth/log-in', data);
+      console.log(res);
+      if (res.ok) {
+        setLoggedIn(true);
+      }
+      navigate('/');
+    } catch(err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div id='login'>
       <h1 className='heading-log-in'>Log In</h1>
       <div className='login-width'>
-        <form action="" method='post'>
           <label htmlFor="email" className="label-login login-label-style">Email</label>
-          <input type="email" name="email" id="email" className="input-login login-input-style" required/>
+          <input 
+          type="email"
+          name="email"
+          id="email"
+          className="input-login login-input-style"
+          required
+          value={data.email}
+          onChange={dataChange}/>
           <label htmlFor="password" className="label-login login-label-style">Password</label>
-          <input type="password" name="password" id="password" className="input-login login-input-style" required />
+          <input 
+          type="password"
+          name="password" 
+          id="password" 
+          className="input-login login-input-style"
+          required
+          value={data.password}
+          onChange={dataChange} />
           <div className='flex-login'>
             <Link to='/forgot-password' className='link-forgot'>Forgot Password?</Link>
-            <button className='log-in-button'>Log in</button>
+            <button 
+            className='log-in-button'
+            onClick={login} type='button'>Log in</button>
           </div>
           <Link to='/create-account' className='link-dont'>Don't have account?</Link>
-        </form>
       </div>
     </div>
   )
