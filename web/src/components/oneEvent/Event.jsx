@@ -1,13 +1,16 @@
 import React, { useState, useEffect }  from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './one-event-style/one-event-style.css';
+import logo from '../logo/logo-dark.png';
 
 export const Event = () => {
   const [event, setEvent] = useState({});
   const [events, setEvents] = useState([]);
   const [category, setCategory] = useState('');
+  const [showPopUp, setShowPopUp] = useState(false);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const getEvent = async () => {
     try {
@@ -41,6 +44,14 @@ export const Event = () => {
 
   console.log(relatedEvents);
 
+  const addToCartPopUp = (e) => {
+    e.preventDefault();
+    const isLoggedIn = false;
+    if(!isLoggedIn) {
+      setShowPopUp(true)
+    }
+  };
+
 
   return (
     <div id="event">
@@ -69,11 +80,22 @@ export const Event = () => {
                 <div className="tickets-form">
                   <form method="post" id="count">
                     <input type="number" name="count" id="count" placeholder="1" />
-                    <button type="submit" className="button-add">Add to cart</button>
+                    <button type="button" className="button-add" onClick={addToCartPopUp}>Add to cart</button>
                   </form>
                 </div>
               </div>
             </div>
+            {showPopUp && (
+            <div className="popup">
+              <div className="popup-buttons">
+                <img src={logo} alt="logo" className="pop-up-logo" />
+                <p className="pop-up-text">You are not logged in. Please log in or create an account to add items to your cart.</p>
+                <button type="button" className="login-pop-up" onClick={() => navigate('/login')}>Log in</button>
+                <button type="button" className="create-pop-up" onClick={() => navigate('/create-account')}>Create Account</button>
+                <button type="button" className="pop-up-close" onClick={() => setShowPopUp(false)}><i class="fa-solid fa-x"></i></button>
+              </div>
+            </div>
+            )}
           </div>
         </div>
       </div>

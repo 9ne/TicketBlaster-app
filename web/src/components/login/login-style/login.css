@@ -64,6 +64,7 @@
   background-color: #FF48AB;
   color: #fff;
   font-size: 16px;
+  font-weight: bold;
   cursor: pointer;
   transition: all ease 0.2s;
 }
