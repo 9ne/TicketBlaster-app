@@ -1,5 +1,6 @@
-import React, { useState, useEffect }  from 'react';
+import React, { useState, useEffect, useContext }  from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../Context/AuthContext';
 import axios from 'axios';
 import './one-event-style/one-event-style.css';
 import logo from '../logo/logo-dark.png';
@@ -10,6 +11,7 @@ export const Event = () => {
   const [category, setCategory] = useState('');
   const [showPopUp, setShowPopUp] = useState(false);
   const { id } = useParams();
+  const { loginSuccess, isLoggedIn } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const getEvent = async () => {
@@ -46,10 +48,11 @@ export const Event = () => {
 
   const addToCartPopUp = (e) => {
     e.preventDefault();
-    const isLoggedIn = false;
-    if(!isLoggedIn) {
-      setShowPopUp(true)
-    }
+    if (!isLoggedIn) {
+      setShowPopUp(true);
+    } else {
+      setShowPopUp(false);
+    };
   };
 
 

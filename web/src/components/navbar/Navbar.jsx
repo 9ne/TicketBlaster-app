@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, useLocation } from 'react-router-dom';
 import './navbar-style/navbar.css';
 import logo from '../logo/logo.png';
+import { AuthContext } from "../../Context/AuthContext";
 
 export const Navbar = () => {
 
   const [focusConcerts, setFocusConcerts] = useState('');
   const [focusStandUp, setFocusStandUp] = useState('');
+  const { isLoggedIn } = useContext(AuthContext); 
 
   const location = useLocation();
  
@@ -46,10 +48,18 @@ useEffect(() => {
         <div className="right-side-flex">
           <ul>
             <input type="search" name="keyword" id="keyword" placeholder="Search.." className="search-bar" />
-            <li><Link to='/login' className="log-in">Log in</Link></li>
-            <li><Link to='/create-account' className="create-account">Create Account</Link></li>
-            {/* <li><Link to='/'><i class="fa-solid fa-cart-shopping"></i></Link></li>
-            <li><Link to='/'><i class="fa-solid fa-user"></i></Link></li> */}
+            {isLoggedIn ? (
+              <>
+                <li><Link to='/'><i class="fa-solid fa-cart-shopping fa-lg cart"></i></Link></li>
+                <li><Link to='/user'><i class="fa-solid fa-user fa-lg user"></i></Link></li>
+              </>
+              
+            ) : (
+              <>
+                <li><Link to='/login' className="log-in">Log in</Link></li>
+                <li><Link to='/create-account' className="create-account">Create Account</Link></li>
+              </>
+            )}
           </ul>
         </div>
       </div>

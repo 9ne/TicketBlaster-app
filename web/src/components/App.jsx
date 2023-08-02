@@ -9,6 +9,7 @@ import { Createaccount } from './create-account/Createaccound';
 import { Concerts } from './musical-concerts/Concerts';
 import { StandUp } from './stand-up-comedy/StandUp';
 import { Event } from './oneEvent/Event';
+import { AdminUser } from './admin-user/AdminUser';
 
 
 export const App = () => {
@@ -24,9 +25,10 @@ export const App = () => {
           <Route path='/musical-concerts' element={<Concerts/>}></Route>
           <Route path='/stand-up-comedy' element={<StandUp/>}></Route>
           <Route path='/one-event/:id' element={<Event/>}></Route>
+          <Route path='/user' element={<AdminUser/>}></Route>
         </Routes>
       </div>
-      <Footer/>
+      {/* <Footer/> */}
     </div>
   );
 };

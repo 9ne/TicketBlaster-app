@@ -55,6 +55,10 @@ ul li a {
   transition: all ease 0.2s;
 }
 
+.active {
+  color: #FF48AB;
+}
+
 .style-hover-focus {
   color: #FF48AB;
 }
@@ -116,10 +120,14 @@ ul li a {
   margin-right: .7rem
 }
 
+ul li .cart {
+  margin: 0 1.9rem;
+}
+
 ul li i {
-  margin-left: 1.2rem;
   color: #FF48AB;
 }
+
 
 
 

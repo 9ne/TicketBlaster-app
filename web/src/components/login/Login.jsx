@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../Context/AuthContext';
 import axios from 'axios';
 import './login-style/login.css';
 
@@ -13,6 +14,7 @@ export const Login = () => {
 
   const [data, setData] = useState(initdata);
   const [loggedIn, setLoggedIn] = useState(false);
+  const { loginSuccess } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const dataChange = (e) => {
@@ -33,9 +35,8 @@ export const Login = () => {
     console.log(data);
     try {
       const res = await axios.post('/api/v1/auth/log-in', data);
-      console.log(res);
-      if (res.ok) {
-        setLoggedIn(true);
+      if (res.status === 200) {
+        loginSuccess();
       }
       navigate('/');
     } catch(err) {
