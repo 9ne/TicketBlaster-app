@@ -19,6 +19,7 @@ api.use((req, res, next) => {
 
 api.post('/api/v1/auth/create-account', auth.signUp);
 api.post('/api/v1/auth/log-in', auth.login);
+api.get('/api/v1/auth/log-out', auth.logOut);
 
 api.listen(process.env.AUTH_PORT, (err) => {
   if(err) return console.log(err);

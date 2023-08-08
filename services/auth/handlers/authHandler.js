@@ -38,7 +38,6 @@ const signUp = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  
   try {
 
     const { email, password } = req.body;
@@ -53,11 +52,13 @@ const login = async (req, res) => {
 
     if(!isPasswordValid) return res.status(400).send('Invalid email or password');
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_EXPIRES
     });
 
-    res.cookie("jwt", token, {
+    console.log(token);
+
+    res.cookie('jwt', token.toString(), {
       expires: new Date(
         Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
       ),
@@ -76,7 +77,26 @@ const login = async (req, res) => {
   }
 };
 
+const logOut = (req, res) =>  {
+  res.clearCookie('jwt');
+  res.status(200).json({
+    status: 'Success',
+    message: 'Logged out succesfully'
+  })
+};
+
+// console.log('logout-function called');
+// res.cookie('jwt', 'session expired', {
+//   expires: new Date(
+//     Date.now() + process.env.JWT_COOKIE_EXPIRES -1000
+//   ),
+//   secure: false,
+//   httpOnly: true,
+// });
+
+
 module.exports = {
   signUp,
   login,
+  logOut
 }

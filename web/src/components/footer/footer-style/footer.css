@@ -34,4 +34,9 @@
   margin-top: 1.4rem;
 }
 
+.concerts.active,
+.stand-up.active {
+  color: #FF48AB;
+}
+
 

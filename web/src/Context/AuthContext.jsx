@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext, useEffect } from 'react';
 
 export const AuthContext = createContext();
 
@@ -9,8 +9,20 @@ export const AuthProvider = ({ children }) => {
     setIsLoggedIn(true);
   };
 
+  const logOut = () => {
+    localStorage.clear('jwt');
+    setIsLoggedIn(false);
+  };
+
+  useEffect(() => {
+    const token = localStorage.getItem('jwt');
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn, loginSuccess }}>
+    <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn, loginSuccess, logOut }}>
       {children}
     </AuthContext.Provider>
   )

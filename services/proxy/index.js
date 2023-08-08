@@ -46,6 +46,6 @@ api.use('/api/v1/upload', uploadProxy);
 
 api.listen(process.env.PROXY_PORT, (err) => {
   if (err) return console.log(err);
-  console.log(`Proxy service online!`);
+  console.log('Proxy service online!');
 });
 

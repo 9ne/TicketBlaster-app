@@ -50,13 +50,9 @@ ul li a {
   justify-content: center;
 }
 
-.style-hover {
+/* .style-hover {
   color: #D3D3D3;
   transition: all ease 0.2s;
-}
-
-.active {
-  color: #FF48AB;
 }
 
 .style-hover-focus {
@@ -65,7 +61,7 @@ ul li a {
 
 .style-hover:hover {
   color: #FF48AB;
-}
+} */
 
 .search-bar {
   padding: 1.1rem .8rem .8rem 1.2rem;
@@ -121,13 +117,18 @@ ul li a {
 }
 
 ul li .cart {
-  margin: 0 1.9rem;
+  margin: 0 1.9rem 0 1.6rem;
 }
 
 ul li i {
   color: #FF48AB;
 }
 
+
+.concerts.active,
+.stand-up.active {
+  color: #FF48AB;
+}
 
 
 
