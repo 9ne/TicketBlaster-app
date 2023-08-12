@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Navbar } from './navbar/Navbar';
 import { Events } from './events/Events';
@@ -11,9 +11,14 @@ import { StandUp } from './stand-up-comedy/StandUp';
 import { Event } from './oneEvent/Event';
 import { AdminUser } from './admin-user/AdminUser';
 import { OutletEvents } from './outlet-components/outlet-events/OutletEvents';
+import { OutletUsers } from './outlet-components/outlet-users/OutletUsers';
+import { OutletTicketsHistory } from './outlet-components/outlet-tickets-history/OutletTicketsHistory';
+import { OutletUserDetails } from './outlet-components/outlet-user-details/OutletUserDetails';
+import { AuthContext } from '../Context/AuthContext';
 
 
 export const App = () => {
+  const { isLoggedIn, userRole } = useContext(AuthContext);
   return (
     <div id='app'>
       <Navbar/>
@@ -27,7 +32,14 @@ export const App = () => {
           <Route path='/stand-up-comedy' element={<StandUp/>}></Route>
           <Route path='/one-event/:id' element={<Event/>}></Route>
           <Route path='/user' element={<AdminUser/>}>
-            <Route path='events' element={<OutletEvents/>}></Route>
+            { userRole === 'admin' && isLoggedIn && ( 
+            <>
+              <Route path='events' element={<OutletEvents/>}></Route>
+              <Route path='users' element={<OutletUsers/>}></Route>
+            </>
+            )}
+            <Route path='tickets-history' element={<OutletTicketsHistory/>}></Route>
+            <Route path='user-details' element={<OutletUserDetails/>}></Route>
           </Route>
         </Routes>
       </div>

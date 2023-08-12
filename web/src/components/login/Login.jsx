@@ -36,7 +36,7 @@ export const Login = () => {
     try {
       const res = await axios.post('/api/v1/auth/log-in', data);
       const token = res.data.token;
-      localStorage.setItem('jwt', token)
+      localStorage.setItem('jwt', token);
       if (res.status === 200) {
         loginSuccess();
       }

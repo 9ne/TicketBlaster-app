@@ -31,9 +31,8 @@ export const Navbar = () => {
             {isLoggedIn ? (
               <>
                 <li><Link to='/'><i class="fa-solid fa-cart-shopping fa-lg cart"></i></Link></li>
-                <li><Link to='/user/events'><i class="fa-solid fa-user fa-lg user"></i></Link></li>
+                <li><Link to='/user'><i class="fa-solid fa-user fa-lg user"></i></Link></li>
               </>
-              
             ) : (
               <>
                 <li><Link to='/login' className="log-in">Log in</Link></li>

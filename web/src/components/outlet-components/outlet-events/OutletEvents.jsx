@@ -7,4 +7,4 @@ export const OutletEvents = () => {
       <h1>outlet events</h1>
     </div>
   )
-}
+};

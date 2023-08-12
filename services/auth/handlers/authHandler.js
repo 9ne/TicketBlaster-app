@@ -78,21 +78,21 @@ const login = async (req, res) => {
 };
 
 const logOut = (req, res) =>  {
+  console.log('logout');
   res.clearCookie('jwt');
-  res.status(200).json({
-    status: 'Success',
-    message: 'Logged out succesfully'
-  })
+  res.status(204).json({
+    message: 'Logout Succesfull'
+  });
 };
 
+// res.clearCookie('jwt');
+//   res.status(200).json({
+//     status: 'Success',
+//     message: 'Logged out succesfully'
+//   })
+
 // console.log('logout-function called');
-// res.cookie('jwt', 'session expired', {
-//   expires: new Date(
-//     Date.now() + process.env.JWT_COOKIE_EXPIRES -1000
-//   ),
-//   secure: false,
-//   httpOnly: true,
-// });
+
 
 
 module.exports = {
