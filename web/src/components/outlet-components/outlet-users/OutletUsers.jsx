@@ -11,8 +11,6 @@ export const OutletUsers = () => {
   const [showPopUpDeleteUser, setShowPopUpDeleteUser] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
 
-
-
   const getUsers = async () => {
     try {
       const response = await axios.get('/api/v1/user/get-all-users');
@@ -34,13 +32,13 @@ export const OutletUsers = () => {
       const currentRole = selectedUserData.role;
       const newRole = currentRole === 'admin' ? 'user' : 'admin';
 
-      const response = await axios.patch(`/api/v1/user/update-user/make-user-admin/${selectedUser}`);
+      const response = await axios.patch(`/api/v1/user/update-user/promote-demote/${selectedUser}`);
       console.log(response);
       setUsers(prevUsers => {
         return prevUsers.map(user => {
           if (user._id === selectedUser) {
-            return { ...user, role: newRole }
-          }
+            return { ...user, role: newRole };
+          };
           return user;
         });
       });
@@ -48,11 +46,23 @@ export const OutletUsers = () => {
         setShowPopUpAdmin(false);
       } else {
         setShowPopUpMakeUser(false);
-      }
+      };
       
     } catch(err) {
       console.log(err);
-    }
+    };
+  };
+
+  const deleteUser = async () => {
+    if (!selectedUser) {
+      console.log('user not found');
+      return;
+    };
+    const response = await axios.delete(`/api/v1/user/delete-user/${selectedUser}`);
+    console.log(response);
+    if (selectedUser === null) {
+      deleteUserPop(false);
+    };
   };
 
   const makeAdmin = () => {
@@ -63,7 +73,7 @@ export const OutletUsers = () => {
     setShowPopUpMakeUser(!showPopUpMakeUser);
   }
 
-  const deleteUser = () => {
+  const deleteUserPop = () => {
     setShowPopUpDeleteUser(!showPopUpDeleteUser);
   };
 
@@ -109,7 +119,12 @@ export const OutletUsers = () => {
                   </>
                 )}
                 
-                <Link className="users-admin-delete-btn" onClick={deleteUser}>Delete User</Link>
+                <Link className=
+                "users-admin-delete-btn"
+                 onClick={() => {
+                  setSelectedUser(user._id);
+                  deleteUserPop();
+                 }}>Delete User</Link>
               </div>
             </div> 
             )
@@ -142,7 +157,12 @@ export const OutletUsers = () => {
             <p className="popup-admin-text-delete-user">You are about to delete a user. Please proceed with caution.</p>
             <div className="popup-admin-flex-delete-user">
               <Link className="popup-cancel-delete-user" onClick={() => setShowPopUpDeleteUser(false)}>Cancel</Link>
-              <Link className="popup-delete-user-btn">Delete User</Link>
+              <Link 
+              className="popup-delete-user-btn"
+              onClick={() => {
+                deleteUser(selectedUser);
+              }}
+              >Delete User</Link>
             </div>
           </div>
         )}
