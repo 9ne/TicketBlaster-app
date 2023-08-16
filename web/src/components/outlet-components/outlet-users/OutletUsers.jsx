@@ -4,19 +4,55 @@ import './outlet-users-style/outlet-users.css';
 import axios from 'axios';
 
 export const OutletUsers = () => {
+  
   const [users, setUsers] = useState([]);
   const [showPopUpAdmin, setShowPopUpAdmin] = useState(false);
   const [showPopUpMakeUser, setShowPopUpMakeUser] = useState(false);
   const [showPopUpDeleteUser, setShowPopUpDeleteUser] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+
+
 
   const getUsers = async () => {
     try {
       const response = await axios.get('/api/v1/user/get-all-users');
-      console.log(response);
       setUsers(response.data.data.findAllUsers);
     } catch(err) {
       console.log(err);
     };
+  };
+
+  const promotingDemotingUsers = async () => {
+    try {
+      if (!selectedUser) {
+        console.log('no selected user');
+        return;
+      } 
+      console.log('selected user:', selectedUser);
+
+      const selectedUserData = users.find(user => user._id === selectedUser);
+      const currentRole = selectedUserData.role;
+      const newRole = currentRole === 'admin' ? 'user' : 'admin';
+
+      const response = await axios.patch(`/api/v1/user/update-user/make-user-admin/${selectedUser}`);
+      console.log(response);
+      setUsers(prevUsers => {
+        return prevUsers.map(user => {
+          if (user._id === selectedUser) {
+            return { ...user, role: newRole }
+          }
+          return user;
+        });
+      });
+      if (newRole === 'admin') {
+        setShowPopUpAdmin(false);
+      } else {
+        setShowPopUpMakeUser(false);
+      }
+      
+    } catch(err) {
+      console.log(err);
+    }
   };
 
   const makeAdmin = () => {
@@ -40,25 +76,36 @@ export const OutletUsers = () => {
     <div id="outlet-users">
       <div className="users-admin">
         {users && users
-          .map((users, i) => {
+          .map((user, i) => {
             return(
             <div key={i} className="users-admin-flex">
               <div className="users-admin-flex-left">
                 <img src={`/images/${users.image}`} className="users-admin-image" />
                 <div className="users-admin-flex-left-content">
-                  <p className="users-admin-name">{users.name}</p>
-                  <p className="users-admin-email">{users.email}</p>
+                  <p className="users-admin-name">{user.name}</p>
+                  <p className="users-admin-email">{user.email}</p>
                 </div>
               </div>
               <div className="users-admin-flex-right">
-                { users.role === 'admin' && (
+                { user.role === 'admin' && (
                   <>
-                    <Link className="users-admin-make-user-btn" onClick={makeUser}>Make User</Link>
+                    <Link 
+                    className="users-admin-make-user-btn" 
+                    onClick={() => {
+                      setSelectedUser(user._id);
+                      makeUser();
+                    }}
+                    >Make User</Link>
                   </>
                 )}
-                { users.role === 'user' && (
+                { user.role === 'user' && (
                   <>
-                    <Link className="users-admin-make-btn" onClick={makeAdmin}>Make Admin</Link>
+                    <Link 
+                    className="users-admin-make-btn"
+                    onClick={() => {
+                      setSelectedUser(user._id);
+                      makeAdmin()
+                    }}>Make Admin</Link>
                   </>
                 )}
                 
@@ -75,8 +122,15 @@ export const OutletUsers = () => {
             <h2 className="popup-admin-title-make-admin">Are you sure?</h2>
             <p className="popup-admin-text-make-admin">You are about to make a user administrator of the system. Please proceed with caution.</p>
             <div className="popup-admin-flex-make-admin">
-              <Link className="popup-cancel-make-admin" onClick={() => setShowPopUpAdmin(false)}>Cancel</Link>
-              <Link className="popup-make-admin-btn">Make user admin</Link>
+              <Link 
+              className="popup-cancel-make-admin" 
+              onClick={() => 
+                setShowPopUpAdmin(false)}>Cancel</Link>
+              <Link 
+              className="popup-make-admin-btn" 
+              onClick={() => {
+                promotingDemotingUsers(selectedUser);
+              }}>Make user admin</Link>
             </div>
           </div>
         )}
@@ -100,7 +154,12 @@ export const OutletUsers = () => {
             <p className="popup-admin-text-make-user">You are about to downgrade a user from administrator. Please proceed with caution.</p>
             <div className="popup-admin-flex-make-user">
               <Link className="popup-cancel-make-user" onClick={() => setShowPopUpMakeUser(false)}>Cancel</Link>
-              <Link className="popup-make-user-btn">Downgrade user</Link>
+              <Link 
+              className="popup-make-user-btn"
+              onClick={() => {
+                promotingDemotingUsers(selectedUser);
+              }}
+              >Downgrade user</Link>
             </div>
           </div>
         )}

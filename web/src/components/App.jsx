@@ -18,7 +18,7 @@ import { AuthContext } from '../Context/AuthContext';
 
 
 export const App = () => {
-  const { isLoggedIn, userRole } = useContext(AuthContext);
+  const { isLoggedIn, userRole, userId } = useContext(AuthContext);
   return (
     <div id='app'>
       <Navbar/>
@@ -31,11 +31,11 @@ export const App = () => {
           <Route path='/musical-concerts' element={<Concerts/>}></Route>
           <Route path='/stand-up-comedy' element={<StandUp/>}></Route>
           <Route path='/one-event/:id' element={<Event/>}></Route>
-          <Route path='/user' element={<AdminUser/>}>
+          <Route path='/user/' element={<AdminUser/>}>
             { userRole === 'admin' && isLoggedIn && ( 
             <>
               <Route path='events' element={<OutletEvents/>}></Route>
-              <Route path='users' element={<OutletUsers/>}></Route>
+              <Route path='users' element={<OutletUsers id={userId}/>}></Route>
             </>
             )}
             <Route path='tickets-history' element={<OutletTicketsHistory/>}></Route>

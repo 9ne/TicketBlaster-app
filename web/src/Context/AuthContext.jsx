@@ -6,19 +6,26 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState('');
+  const [userId, setUserId] = useState('');
 
-  const loginSuccess = () => {
+  const loginSuccess = async () => {
     setIsLoggedIn(true);
-    setUserRoleD();
+    await fetchUserData();
+    console.log('Token stored:', localStorage.getItem('jwt'));
   };
 
-  const setUserRoleD = () => {
-    const token = localStorage.getItem('jwt');
-    console.log(token);
-    if (token) {
-      const decodedToken = jwtDecode(token);
-      setUserRole(decodedToken.role);
-    };
+  const fetchUserData = async () => {
+    try {
+      const token = localStorage.getItem('jwt');
+      if (token) {
+        const decodedToken = jwtDecode(token);
+        console.log('decoded token:', decodedToken);
+        setUserRole(decodedToken.role);
+        setUserId(decodedToken.id);
+      } 
+    } catch(err) {
+      console.log(err);
+    }
   };
 
   const logOut = () => {
@@ -31,13 +38,13 @@ export const AuthProvider = ({ children }) => {
     const token = localStorage.getItem('jwt');
     if (token) {
       setIsLoggedIn(true);
-      setUserRoleD();
+      fetchUserData();
     }
   }, []);
 
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, userRole, setIsLoggedIn, loginSuccess, logOut }}>
+    <AuthContext.Provider value={{ isLoggedIn, userRole, userId, setIsLoggedIn, loginSuccess, logOut }}>
       {children}
     </AuthContext.Provider>
   )

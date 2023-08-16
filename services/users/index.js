@@ -14,8 +14,9 @@ api.use(express.urlencoded({ extended: true }));
 api.use(express.static('public'));
 
 api.get('/api/v1/user/get-all-users', userHandler.getAllUsers);
-api.get('/api/v1/user/get-one-user/:id', userHandler.getOneUser);
+api.get('/api/v1/user/get-user/:id', userHandler.getOneUser);
 api.patch('/api/v1/user/update-user/:id', multer.uploadImage, userHandler.updateUser);
+api.patch('/api/v1/user/update-user/make-user-admin/:id', userHandler.promoteDemote);
 api.delete('/api/v1/user/delete-user/:id', userHandler.deleteUser);
 
 api.listen(process.env.USERS_PORT, (err) => {

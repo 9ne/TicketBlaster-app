@@ -131,14 +131,23 @@
   padding: 0.6rem 0 0 2.6rem;
 }
 
+
 .popup-make-admin-btn,
 .popup-delete-user-btn,
 .popup-make-user-btn {
   background-color: #000;
   color: #fff;
   width: 13.142rem;
-  padding: 0.6rem 0 0 3.4rem;
   border-radius: 20px;
+  padding: 0.6rem 0 0 3.5rem;
+}
+
+.popup-make-admin-btn {
+  padding: 0.6rem 0 0 2.3rem;
+}
+
+.popup-make-user-btn {
+  padding: 0.6rem 0 0 2.5rem;
 }
 
 

@@ -77,9 +77,46 @@ const deleteUser = async (req, res) => {
   }
 };
 
+const promoteDemote = async (req, res) =>  {
+  try {
+    const { id } = req.params;
+    const user = await User.findById(id);
+
+    if (!user) {
+      return res.status(404).json({
+        status: 'Fail',
+        message: 'User not found'
+      });
+    }
+
+    const newRole = user.role === 'admin' ? 'user' : 'admin';
+
+    const updatedUser = await User.findByIdAndUpdate(
+      id,
+      { role: newRole },
+      { new: true }
+    );
+
+    res.status(200).json({
+      status: 'Success',
+      data: {
+        updatedUser
+      }
+    });
+
+  } catch(err) {
+    res.status(404).json({
+      status: 'Fail',
+      message: err
+    });
+  }
+};
+
+
 module.exports = {
   getAllUsers,
   getOneUser,
   updateUser,
-  deleteUser
+  deleteUser,
+  promoteDemote,
 }
