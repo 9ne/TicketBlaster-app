@@ -6,6 +6,7 @@ const cors = require('cors');
 
 const api = express();
 api.use(cors());
+api.use(express.static('public'));
 
 DB.init();
 

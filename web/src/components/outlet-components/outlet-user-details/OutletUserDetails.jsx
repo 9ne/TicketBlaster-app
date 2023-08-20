@@ -1,13 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { AuthContext } from '../../../Context/AuthContext';
 import { Link } from 'react-router-dom';
 import './outlet-user-details-style/outlet-user-details.css';
 
 export const OutletUserDetails = () => {
   const [passwordForm, setPasswordForm] = useState(false);
+  const { userDefaultImg, userName } = useContext(AuthContext);
+
+  console.log('user default image:', userDefaultImg);
+  console.log(userName);
 
   const togglePasswordForm = () => {
     setPasswordForm(!passwordForm);
-  }
+  };
 
   return (
     <div id="outlet-user-details">
@@ -15,20 +20,30 @@ export const OutletUserDetails = () => {
         <div className="outlet-user-details-flex">
           <form className="form">
             <div className="outlet-user-details-flex-top">
-              <img className="outlet-tuser-details-image" />
+              <img 
+              className="outlet-user-details-image" 
+              src={`/${userDefaultImg}`}
+              alt={userName}
+              />
               <div className="outlet-user-details-flex-top-inner">
                 <label htmlFor="name">Full Name</label>
-                <input type="text" name="name" id="name" required/>
+                <input type="text" name="name" id="name"/>
               </div>
             </div>
             <div className="outlet-user-details-flex-bottom">
               <div className="outlet-user-details-flex-bottom-left">
-                <input type="file" name="image" id="file" className="input-image"/>
+                <input 
+                type="file" 
+                name="image" 
+                id="file" 
+                className="input-image"
+                onChange
+                />
                 <label htmlFor="file" className="label-file">Upload Avatar</label>
               </div>
               <div className="outlet-user-details-flex-bottom-right">
                 <label htmlFor="email">Email</label>
-                <input type="email" name="email" id="email" required/>
+                <input type="email" name="email" id="email"/>
               </div>
             </div>
             <button type="submit" className="submit-bottom-form-top">Submit</button>
@@ -56,7 +71,7 @@ export const OutletUserDetails = () => {
               </div>
               <button type="submit" className="submit-bottom-form-bottom">Submit</button>
             </form>
-            )} 
+            )}
         </div>
       </div>
     </div>

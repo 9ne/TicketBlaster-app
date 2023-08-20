@@ -54,15 +54,20 @@ export const OutletUsers = () => {
   };
 
   const deleteUser = async () => {
-    if (!selectedUser) {
-      console.log('user not found');
-      return;
-    };
-    const response = await axios.delete(`/api/v1/user/delete-user/${selectedUser}`);
-    console.log(response);
-    if (selectedUser === null) {
-      deleteUserPop(false);
-    };
+    try {
+      if (!selectedUser) {
+        console.log('user not found');
+        return;
+      };
+      const response = await axios.delete(`/api/v1/user/delete-user/${selectedUser}`);
+      console.log(response);
+      if (response.status === 204) {
+        setUsers(prevUsers => prevUsers.filter(user => user._id !== selectedUser));
+        deleteUserPop(false);
+      };
+    } catch(err) {
+      console.log('error deleting user:', err);
+    }
   };
 
   const makeAdmin = () => {
@@ -85,12 +90,16 @@ export const OutletUsers = () => {
   return (
     <div id="outlet-users">
       <div className="users-admin">
-        {users && users
+        { users && users
           .map((user, i) => {
             return(
             <div key={i} className="users-admin-flex">
               <div className="users-admin-flex-left">
-                <img src={`/images/${users.image}`} className="users-admin-image" />
+                <img 
+                src={`/${user.image}`}
+                className="users-admin-image" 
+                alt={user.name} 
+                />
                 <div className="users-admin-flex-left-content">
                   <p className="users-admin-name">{user.name}</p>
                   <p className="users-admin-email">{user.email}</p>
@@ -124,7 +133,7 @@ export const OutletUsers = () => {
                  onClick={() => {
                   setSelectedUser(user._id);
                   deleteUserPop();
-                 }}>Delete User</Link>
+                }}>Delete User</Link>
               </div>
             </div> 
             )

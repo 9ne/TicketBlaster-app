@@ -4,6 +4,7 @@ const DB = require('../../pkg/db/index');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
+
 const api = express();
 api.use(cors());
 
@@ -11,6 +12,8 @@ DB.init();
 
 api.use(express.json());
 api.use(cookieParser());
+api.use(express.static('public'));
+
 
 api.use((req, res, next) => {
   console.log(req.cookies);

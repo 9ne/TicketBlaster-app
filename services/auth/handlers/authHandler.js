@@ -3,12 +3,11 @@ const jwt = require('jsonwebtoken');
 const bcryptjs = require('bcryptjs');
 
 const signUp = async (req, res) => {
-
   try {
     const newUser = await User.create({
       name: req.body.name ,
       email: req.body.email,
-      password: req.body.password
+      password: req.body.password,
     });
 
     const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
