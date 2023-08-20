@@ -96,7 +96,11 @@ export const OutletUsers = () => {
             <div key={i} className="users-admin-flex">
               <div className="users-admin-flex-left">
                 <img 
-                src={`/${user.image}`}
+                src={
+                  user.image.startsWith('user-')
+                  ? `/${user.image}` 
+                  : `/images/${user.image}`
+                }
                 className="users-admin-image" 
                 alt={user.name} 
                 />

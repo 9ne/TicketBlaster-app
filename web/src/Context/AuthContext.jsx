@@ -10,12 +10,17 @@ export const AuthProvider = ({ children }) => {
   const [userId, setUserId] = useState('');
   const [userDefaultImg, setUserDefaultImage] = useState('');
   const [userName, setUserName] = useState('');
+  const [userEmail, setUserEmail] = useState('');
+  
 
   const loginSuccess = async () => {
     setIsLoggedIn(true);
     await fetchUserData();
   };
 
+  const updateDefaultImg = (newImage) => {
+    setUserDefaultImage(newImage);
+  }
 
   const fetchUserData = async () => {
     try {
@@ -23,6 +28,7 @@ export const AuthProvider = ({ children }) => {
       console.log(token);
       if (token) {
         const decodedToken = jwtDecode(token);
+        console.log(decodedToken);
         setUserRole(decodedToken.role);
         setUserId(decodedToken.id);
 
@@ -31,6 +37,7 @@ export const AuthProvider = ({ children }) => {
         const oneUser = response.data.data.oneUser;
         setUserDefaultImage(oneUser.image);
         setUserName(oneUser.name);
+        setUserEmail(oneUser.email);
         console.log('decoded token:', decodedToken);
       } 
     } catch(err) {
@@ -54,7 +61,7 @@ export const AuthProvider = ({ children }) => {
 
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, userRole, userId, userDefaultImg, userName, setIsLoggedIn, loginSuccess, logOut }}>
+    <AuthContext.Provider value={{ isLoggedIn, userRole, userId, userDefaultImg, userName,  userEmail, updateDefaultImg, setIsLoggedIn, loginSuccess, logOut  }}>
       {children}
     </AuthContext.Provider>
   )
