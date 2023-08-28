@@ -15,6 +15,7 @@ export const Login = () => {
   const [data, setData] = useState(initdata);
   const [loggedIn, setLoggedIn] = useState(false);
   const { loginSuccess } = useContext(AuthContext);
+  const [wrongEmailOrPassword, setWrongEmailOrPassword] = useState(false);
   const navigate = useNavigate();
 
   const dataChange = (e) => {
@@ -42,8 +43,12 @@ export const Login = () => {
       }
       navigate('/');
     } catch(err) {
-      console.log(err);
-    }
+      if(err.response && err.response.status === 401) {
+        setWrongEmailOrPassword(true);
+      } else {
+        setWrongEmailOrPassword(false);
+      };
+    };
   };
 
   return (
@@ -76,6 +81,9 @@ export const Login = () => {
           </div>
           <Link to='/create-account' className='link-dont'>Don't have account?</Link>
       </div>
+      { wrongEmailOrPassword && 
+        <p className="show-error-message-log-in">Wrong email or password</p>
+      }
     </div>
   )
 };

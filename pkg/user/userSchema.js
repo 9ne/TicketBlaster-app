@@ -36,6 +36,19 @@ userSchema.pre('save', async function(next) {
   next();
 });
 
+userSchema.pre('findByIdAndUpdate', async function(next) {
+  const update = this.setUpdate();
+  if(update.password) {
+    const passwordHash = await bcrypt.hash(update.password, 12);
+    this.setUpdate({
+      $set: {
+        password: passwordHash,
+      }
+    });
+  }
+  next();
+});
+
 const User = mongoose.model('user', userSchema);
 
 module.exports = User;

@@ -198,3 +198,16 @@
   font-size: 1.2rem;
 }
 
+.form-outlet-users-change-password {
+  position: relative;
+}
+
+.match-password-outlet-details {
+  display: inline-block;
+  position: absolute;
+  top: 6rem;
+  left: 56%;
+  color: #cb0000;
+  font-size: 0.8rem;
+}
+

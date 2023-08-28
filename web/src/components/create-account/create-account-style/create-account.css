@@ -3,6 +3,10 @@
   margin: 3.57rem auto 16.2rem;
 }
 
+#form-create-account {
+  position: relative;
+}
+
 .heading-create-acc {
   font-weight: bold;
   font-size: 3.14rem;
@@ -70,6 +74,35 @@
 .already-have-btn:hover {
   background-color: #FF48AB;
   color: #fff;
+}
+
+.match-password-create-account {
+  position: absolute;
+  top: 25.5rem;
+  left: 1rem;
+  font-size: 0.8rem;
+  color: #cb0000;
+}
+
+.checking-name-sign-up {
+  position: absolute; 
+  left: 1rem;
+  font-size: 0.8rem;
+  color: #cb0000;
+}
+
+.checking-email-sign-up {
+  position: absolute; 
+  left: 1rem;
+  font-size: 0.8rem;
+  color: #cb0000;
+}
+
+.validate-password-sign-up {
+  position: absolute; 
+  left: 1rem;
+  font-size: 0.8rem;
+  color: #cb0000;
 }
 
 

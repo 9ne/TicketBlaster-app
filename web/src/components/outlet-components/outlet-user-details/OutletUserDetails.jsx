@@ -12,9 +12,10 @@ export const OutletUserDetails = () => {
   const [isDefaultImg, setIsDefaultImg] = useState(true);
   const [password, setPassword] = useState('');
   const [reTypePassword, setReTypePassword] = useState('');
-  const [passwordMessage, setPasswordMessage] = useState('');
 
-  const { userDefaultImg, userName, updateDefaultImg, userId, userEmail } = useContext(AuthContext);
+  const { userDefaultImg, userName, updateDefaultImg, userId } = useContext(AuthContext);
+
+  console.log(userId);
 
   const imageChange = (e) => {
     setNewImage(e.target.files[0]);
@@ -62,14 +63,15 @@ export const OutletUserDetails = () => {
 
   const newUserPassword = async () => {
     try {
-      await axios.patch(`/api/v1/user/update-user/${userId}`, {
-        password: password
-      });
-    } catch(err) {  
-      console.log(err);
+      if (password === reTypePassword) {
+        await axios.patch(`/api/v1/user/update-user/change-password/${userId}`, {
+          password: password,
+        });
+      }
+      
+      } catch(err) {  
     }
   };
-
 
   const togglePasswordForm = () => {
     setPasswordForm(!passwordForm);
@@ -92,7 +94,7 @@ export const OutletUserDetails = () => {
                   type="text" 
                   name="name" 
                   id="name"
-                  value={newName || userName}
+                  value={newName}
                   onChange={nameChange}
                 />
               </div>
@@ -114,7 +116,7 @@ export const OutletUserDetails = () => {
                   type="email"
                   name="email"
                   id="email"
-                  value={newEmail || userEmail}
+                  value={newEmail}
                   onChange={emailChange}
                 />
               </div>
@@ -136,37 +138,42 @@ export const OutletUserDetails = () => {
               >Change Password</Link>
             </div>
             { passwordForm && (
-              <form>
-              <div className="outlet-users-password-flex-bottom">
-                <div className="outlet-users-password-flex-bottom-top">
-                  <label htmlFor="password">Password</label>
-                  <input 
-                    type="password" 
-                    name="password" 
-                    id="password" 
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
+              <form className="form-outlet-users-change-password">
+                <div className="outlet-users-password-flex-bottom">
+                  <div className="outlet-users-password-flex-bottom-top">
+                    <label htmlFor="password">Password</label>
+                    <input 
+                      type="password" 
+                      name="password" 
+                      id="password" 
+                      required
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </div>
+                  <div className="outlet-users-password-flex-bottom-bottom">
+                    <label htmlFor="re-password">Re-type Password</label>
+                    <input 
+                      type="password" 
+                      name="password" 
+                      id="re-password" 
+                      required
+                      value={reTypePassword}
+                      onChange={(e) => setReTypePassword(e.target.value)}
+                    />
+                  </div>
                 </div>
-                <div className="outlet-users-password-flex-bottom-bottom">
-                  <label htmlFor="re-password">Re-type Password</label>
-                  <input 
-                    type="password" 
-                    name="password" 
-                    id="re-password" 
-                    required
-                    value={reTypePassword}
-                    onChange={(e) => setReTypePassword(e.target.value)}
-                  />
-                </div>
-              </div>
-              <button 
-                type="submit" 
-                className="submit-bottom-form-bottom"
-                onClick={newUserPassword}
-              >Submit</button>
-            </form>
+                {(reTypePassword !== '' && password !== reTypePassword) && (
+                  <p className="match-password-outlet-details">
+                    Passwords do not match
+                  </p>
+                )}
+                <button 
+                  type="submit" 
+                  className="submit-bottom-form-bottom"
+                  onClick={newUserPassword}
+                >Submit</button>
+              </form>
             )}
         </div>
       </div>

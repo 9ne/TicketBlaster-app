@@ -1,4 +1,5 @@
 const User = require('../../../pkg/user/userSchema');
+const bcrypt = require('bcryptjs');
 
 const getAllUsers = async (req, res) => {
   try {
@@ -112,6 +113,37 @@ const promoteDemote = async (req, res) =>  {
   }
 };
 
+const userChangePassword = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { password } = req.body;
+    console.log(id);
+    console.log(password);
+
+    const hashedPassword = await bcrypt.hash(password, 12);
+
+    const updatePassword = await User.findByIdAndUpdate(
+      id, 
+        { password: hashedPassword },
+        { new: true, runValidators: true},
+      );
+    console.log(updatePassword);
+    res.status(200).json({
+      status: 'Success',
+      data: {
+        updatePassword
+      }
+    });
+    
+  } catch(err) {
+    res.status(400).json({
+      status: 'Fail',
+      message: err.message
+    });
+  }
+};
+
+
 
 module.exports = {
   getAllUsers,
@@ -119,4 +151,5 @@ module.exports = {
   updateUser,
   deleteUser,
   promoteDemote,
+  userChangePassword
 }
