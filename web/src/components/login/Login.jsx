@@ -24,16 +24,8 @@ export const Login = () => {
       [e.target.name]: e.target.value
     });
   };
-
-  useEffect(() => {
-    const isLoggedIn = localStorage.getItem('loggedIn') === 'true';
-    setLoggedIn(isLoggedIn); 
-  }, []);
-
-  console.log(data);
-
+  
   const login = async () => {
-    console.log(data);
     try {
       const res = await axios.post('/api/v1/auth/log-in', data);
       const token = res.data.token;
@@ -50,6 +42,12 @@ export const Login = () => {
       };
     };
   };
+
+
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem('loggedIn') === 'true';
+    setLoggedIn(isLoggedIn);
+  }, []);
 
   return (
     <div id='login'>
@@ -76,8 +74,11 @@ export const Login = () => {
           <div className='flex-login'>
             <Link to='/forgot-password' className='link-forgot'>Forgot Password?</Link>
             <button 
-            className='log-in-button'
-            onClick={login} type='button'>Log in</button>
+              className='log-in-button'
+              onClick={login} 
+              type='button'>
+                Log in
+            </button>
           </div>
           <Link to='/create-account' className='link-dont'>Don't have account?</Link>
       </div>

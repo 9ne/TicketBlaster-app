@@ -3,12 +3,15 @@ import { Link } from 'react-router-dom';
 import './create-account-style/create-account.css';
 import axios from 'axios';
 import validator from 'validator';
+import logo from '../logo/logo-dark.png';
 
 export const Createaccount = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [reTypePassword, setReTypePassword] = useState('');
+  const [emailExists, setEmailExists] = useState('');
+  const [accountCreatedPopUp, setAccountCreatedPopUp] = useState(false);
 
   const nameSplit = name.split(' ');
   const nameAtLeastTwoWords = nameSplit.length >= 2;
@@ -20,23 +23,38 @@ export const Createaccount = () => {
   //   minLength: 8,
   // });
 
-  console.log(password);
-  console.log(validatePassword);
+  // console.log(password);
+  // console.log(validatePassword);
 
 
   const signUp = async () => {
-
+    if (!nameAtLeastTwoWords) {
+      console.log('Full name must contain at least a name and a sirname');
+      return
+    }
     try {
-      await axios.post('/api/v1/auth/create-account', {
+      const response = await axios.post('/api/v1/auth/create-account', {
         name,
         email,
         password
       });
 
+      if (response.status === 201) {
+        setName('');
+        setEmail('');
+        setPassword('');
+        setReTypePassword('')
+        setAccountCreatedPopUp(true);
+      }
+
     } catch(err) {
       console.log(err);
-    }
-  }
+      if (err.response && err.response.status === 500) {
+        setEmailExists('Email already exists in the database');
+      };
+    };
+  };
+
   return (
     <div id="create-account">
       <h1 className="heading-create-acc">Create Account</h1>
@@ -75,6 +93,9 @@ export const Createaccount = () => {
           />
           { email !== '' && !validateEmail && (
             <p className="checking-email-sign-up">Please provide a valid email</p>
+          )}
+          { emailExists && (
+            <p className="checking-email-exist">Account already exists with that email address</p>
           )}
           <label 
           htmlFor="password" 
@@ -115,6 +136,14 @@ export const Createaccount = () => {
           )}
           <button className="create-account-btn" type="button" onClick={signUp}>Create account</button>
         </form>
+        { accountCreatedPopUp && (
+          <div className="pop-up-create-account">
+            <img src={logo} alt="logo" className="pop-up-logo-create-account" />
+            <p className="pop-up-text-create-account">Succesfully created account! Proceed to log in.</p>
+            <Link to="/login" className="proceed-to-log-in">Log in</Link>
+            <button type="button" className="pop-up-close-create-account" onClick={() => setAccountCreatedPopUp(false)}><i class="fa-solid fa-x"></i></button>
+          </div>
+        )}
         <Link to="/login" className="already-have-btn">Already have an account?</Link>
       </div>
     </div>

@@ -11,16 +11,16 @@ export const AuthProvider = ({ children }) => {
   const [userDefaultImg, setUserDefaultImage] = useState('');
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
-  
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const loginSuccess = async () => {
-    setIsLoggedIn(true);
-    await fetchUserData();
+  const updatedSearchQuery = (query) => {
+    setSearchQuery(query);
+    localStorage.setItem('searchQuery', query);
   };
 
   const updateDefaultImg = (newImage) => {
     setUserDefaultImage(newImage);
-  }
+  };
 
   const fetchUserData = async () => {
     try {
@@ -42,7 +42,12 @@ export const AuthProvider = ({ children }) => {
       } 
     } catch(err) {
       console.log(err);
-    }
+    };
+  };
+
+  const loginSuccess = async () => {
+    setIsLoggedIn(true);
+    await fetchUserData();
   };
 
   const logOut = () => {
@@ -56,12 +61,12 @@ export const AuthProvider = ({ children }) => {
     if (token) {
       setIsLoggedIn(true);
       fetchUserData();
-    }
+    };
   }, []);
 
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, userRole, userId, userDefaultImg, userName,  userEmail, updateDefaultImg, setIsLoggedIn, loginSuccess, logOut  }}>
+    <AuthContext.Provider value={{ isLoggedIn, userRole, userId, userDefaultImg, userName,  userEmail, searchQuery, updatedSearchQuery, updateDefaultImg, setIsLoggedIn, loginSuccess, logOut  }}>
       {children}
     </AuthContext.Provider>
   )

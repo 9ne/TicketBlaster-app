@@ -105,4 +105,67 @@
   color: #cb0000;
 }
 
+.checking-email-exist {
+  position: absolute; 
+  left: 1rem;
+  font-size: 0.8rem;
+  color: #cb0000;
+}
+
+.pop-up-create-account {
+  display: block;
+  position: fixed;
+  width: 30rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border: none;
+  padding: 3.21rem;
+  box-shadow: 0px 20px 40px #00000029;
+  z-index: 9999;
+  border-radius: 20px;
+}
+
+.pop-up-logo-create-account {
+  height: 2.8rem;
+  width: 18.21rem;
+  margin: 6px 0 2.64rem 3rem;
+}
+
+.proceed-to-log-in {
+  display: inline-block;
+  width: 7.285rem;
+  height: 3rem;
+  padding: 0.5rem 0 0 2rem;
+  border-radius: 20px;
+  border: 1px solid #FF48AB;
+  background-color: #FF48AB;
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all ease 0.2s;
+  margin: 0 0 1rem 8rem;
+}
+
+.proceed-to-log-in:hover {
+  background-color: #FF269B;
+}
+
+.pop-up-close-create-account {
+  background-color: #fff;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.pop-up-text-create-account {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+}
+
+
 

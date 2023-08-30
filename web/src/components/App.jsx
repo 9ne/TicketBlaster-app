@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Navbar } from './navbar/Navbar';
 import { Events } from './events/Events';
+import { SearchEvents } from './search-events/SearchEvents';
 import { Footer } from './footer/Footer';
 import { Login } from './login/Login';
 import { Forgot } from './forgot-password/Forgot';
@@ -25,6 +26,7 @@ export const App = () => {
       <div>
         <Routes>
           <Route path='/' element={<Events/>}></Route>
+          <Route path='/events' element={<SearchEvents></SearchEvents>}></Route>
           <Route path='/login' element={<Login/>}></Route>
           <Route path='/forgot-password' element={<Forgot/>}></Route>
           <Route path='/create-account' element={<Createaccount/>}></Route>
