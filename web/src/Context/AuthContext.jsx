@@ -25,20 +25,20 @@ export const AuthProvider = ({ children }) => {
   const fetchUserData = async () => {
     try {
       const token = localStorage.getItem('jwt');
-      console.log(token);
+      // console.log(token);
       if (token) {
         const decodedToken = jwtDecode(token);
-        console.log(decodedToken);
+        // console.log(decodedToken);
         setUserRole(decodedToken.role);
         setUserId(decodedToken.id);
 
         const response = await axios.get(`/api/v1/user/get-user/${decodedToken.id}`);
-        console.log(response);
+        // console.log(response);
         const oneUser = response.data.data.oneUser;
         setUserDefaultImage(oneUser.image);
         setUserName(oneUser.name);
         setUserEmail(oneUser.email);
-        console.log('decoded token:', decodedToken);
+        // console.log('decoded token:', decodedToken);
       } 
     } catch(err) {
       console.log(err);

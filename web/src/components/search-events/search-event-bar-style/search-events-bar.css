@@ -65,11 +65,11 @@
   color: #fff;
   width: 9.14rem;
   height: 2.3rem;
+  padding: 0.2rem 0 0 1.9rem;
   background-color: #000;
   border-radius: 20px;
   border: 2px solid #000;
   transition: all ease 0.2s;
-  cursor: pointer;
 }
 
 .search-events-button:hover {

@@ -47,7 +47,7 @@ export const Concerts = () => {
                       <p className="concert-details">{concert.eventDetails}</p>
                       <div className="concert-location-tickets-flex">
                         <p className='concert-location'>{concert.location}</p>
-                        <Link to={`/one-event/${concert._id}`}className="concert-location-link">Get Tickets</Link>
+                        <Link to={`/event/${concert._id}`}className="concert-location-link">Get Tickets</Link>
                       </div>
                     </div>
                 </div>

@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../Context/AuthContext';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './search-event-bar-style/search-events-bar.css';
 
@@ -34,12 +35,11 @@ export const SearchEvents = () => {
 
   useEffect(() => {
     const localQuery = localStorage.getItem('searchQuery');
-
     if (localQuery) {
       updatedSearchQuery(localQuery);
-    }
-    searchedEvents()
-    searchedEvents();
+      searchedEvents();
+    } 
+    
   }, [updatedSearchQuery]);
 
 
@@ -49,7 +49,7 @@ export const SearchEvents = () => {
       <h1 className="search-events-title">Search Results for: {searchQuery}</h1>
       <div className="search-events">
         { events.length > 0 ? (
-          events && events.map((event, i) => {
+          events.map((event, i) => {
             return(
               <div key={i} className="search-events-flex">
                 <div className="search-events-flex-left">
@@ -63,9 +63,7 @@ export const SearchEvents = () => {
                     <p className="search-event-location">{event.location}</p>
                   </div>
                   <div className="search-event-flex-inner-right">
-                    <form method="post">
-                      <button type="button" className="search-events-button">Get tickets</button>
-                    </form>
+                    <Link className="search-events-button" to={`/event/${event._id}`}>Get tickets</Link>
                   </div>
                 </div>
               </div>

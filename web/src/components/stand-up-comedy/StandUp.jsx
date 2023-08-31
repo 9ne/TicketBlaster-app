@@ -47,7 +47,7 @@ export const StandUp = () => {
                   <p className="stand-up-details">{standup.eventDetails}</p>
                   <div className="stand-up-location-tickets-flex">
                     <p className="stand-up-location">{standup.location}</p>
-                    <Link to={`/one-event/${standup._id}`} className="stand-up-location-link">Get Tickets</Link>
+                    <Link to={`/event/${standup._id}`} className="stand-up-location-link">Get Tickets</Link>
                   </div>
                 </div>
               </div>

@@ -11,6 +11,7 @@ import { Concerts } from './musical-concerts/Concerts';
 import { StandUp } from './stand-up-comedy/StandUp';
 import { Event } from './oneEvent/Event';
 import { AdminUser } from './admin-user/AdminUser';
+import { CreateEvent } from './outlet-components/outlet-create-event/CreateEvent';
 import { OutletEvents } from './outlet-components/outlet-events/OutletEvents';
 import { OutletUsers } from './outlet-components/outlet-users/OutletUsers';
 import { OutletTicketsHistory } from './outlet-components/outlet-tickets-history/OutletTicketsHistory';
@@ -32,10 +33,11 @@ export const App = () => {
           <Route path='/create-account' element={<Createaccount/>}></Route>
           <Route path='/musical-concerts' element={<Concerts/>}></Route>
           <Route path='/stand-up-comedy' element={<StandUp/>}></Route>
-          <Route path='/one-event/:id' element={<Event/>}></Route>
+          <Route path='/event/:id' element={<Event/>}></Route>
           <Route path='/user/' element={<AdminUser/>}>
             { userRole === 'admin' && isLoggedIn && ( 
             <>
+              <Route path='create-event' element={<CreateEvent></CreateEvent>}></Route>
               <Route path='events' element={<OutletEvents/>}></Route>
               <Route path='users' element={<OutletUsers/>}></Route>
             </>
@@ -43,6 +45,7 @@ export const App = () => {
             <Route path='tickets-history' element={<OutletTicketsHistory/>}></Route>
             <Route path='user-details' element={<OutletUserDetails/>}></Route>
           </Route>
+          
         </Routes>
       </div>
       {/* <Footer/> */}

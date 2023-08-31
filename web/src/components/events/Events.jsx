@@ -64,7 +64,7 @@ export const Events = () => {
                       <p className="event-details">{event.eventDetails}</p>
                       <div className="event-location-tickets-flex">
                         <p className='event-location'>{event.location}</p>
-                        <Link to={`/one-event/${event._id}`} className="event-location-link">Get Tickets</Link>
+                        <Link to={`/event/${event._id}`} className="event-location-link">Get Tickets</Link>
                       </div>
                     </div>
                   </div>
@@ -93,7 +93,7 @@ export const Events = () => {
                       <p className="event-details">{event.eventDetails}</p>
                       <div className="event-location-tickets-flex">
                         <p className='event-location'>{event.location}</p>
-                        <Link to={`/one-event/${event._id}`} className="event-location-link">Get Tickets</Link>
+                        <Link to={`/event/${event._id}`} className="event-location-link">Get Tickets</Link>
                       </div>
                     </div>
                   </div>

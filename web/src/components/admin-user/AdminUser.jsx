@@ -1,17 +1,23 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link, NavLink, useNavigate, Outlet, useLocation } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthContext';
-import { OutletTicketsHistory } from '../outlet-components/outlet-tickets-history/OutletTicketsHistory';
 import axios from 'axios';
 import './admin-user-style/admin-user.css';
  
 export const AdminUser = () => {
 
-  const { isLoggedIn, logOut, userRole } = useContext(AuthContext);
-  const [users, setUsers] = useState([]);
+  const { logOut, userRole } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
+  const [createEventButton, setCreateEventButton] = useState(false);
 
+  const handleCreateEventButton = () => {
+    setCreateEventButton(true);
+  };
+
+  const handleLink = () => {
+    setCreateEventButton(false);
+  };
 
   const handleLogout = async () => {
     try {
@@ -25,7 +31,7 @@ export const AdminUser = () => {
   };
 
   useEffect(() => {
-    console.log(1, userRole);
+    navigate('/user/user-details');
   }, [userRole])
 
   return(
@@ -34,7 +40,16 @@ export const AdminUser = () => {
         <div className="flex-admin-user-left">
           { userRole === 'user' && <h2 className="user-tickets-history">Tickets History</h2> }
           { userRole === 'admin' && <h2 className="admin-events">Events</h2> }
-          { userRole === 'admin' && <Link to='/' className="create-event-admin-btn">Create Event</Link> }
+          { userRole === 'admin' && !createEventButton && (
+            <NavLink 
+              to='/user/create-event' 
+              className={`create-event-admin-btn`}
+              onClick={handleCreateEventButton}
+              >
+                Create Event
+            </NavLink>
+            ) 
+          }
         </div>
         <div className="flex-admin-user-right">
           <ul>
@@ -43,6 +58,7 @@ export const AdminUser = () => {
               <NavLink 
               className={`nav-links-events ${location.pathname === '/user/events' ? 'active' : ''}`}
               to='/user/events'
+              onClick={handleLink}
               >
                 Events
               </NavLink>
@@ -51,18 +67,25 @@ export const AdminUser = () => {
             <li>
               <NavLink className={`nav-link-users ${location.pathname === '/user/users' ? 'active' : ''}`}
               to='/user/users'
+              onClick={handleLink}
               >
               Users
               </NavLink>
             </li> )}
             <li>
-              <NavLink className={`nav-link-tickets ${location.pathname === '/user/tickets-history' ? 'active' : ''}`} to='/user/tickets-history'>Tickets History
+              <NavLink 
+                className={`nav-link-tickets ${location.pathname === '/user/tickets-history' ? 'active' : ''}`} 
+                to='/user/tickets-history'
+                onClick={handleLink}
+                >
+                  Tickets History
               </NavLink>
             </li>
             <li>
               <NavLink 
               className={`nav-link-user-details ${location.pathname === '/user/user-details' ? 'active' : ''}`}
               to='/user/user-details'
+              onClick={handleLink}
               >User Details
               </NavLink>
             </li>

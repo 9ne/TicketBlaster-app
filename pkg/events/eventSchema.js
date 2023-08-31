@@ -18,11 +18,15 @@ const eventSchema = new mongoose.Schema({
     type: String
   },
   image: {
-    type: String
+    type: String,
+    default: 'default-image-event.png'
   },
   genre: {
     type: String,
     enum: ['rock', 'metal', 'heavy metal', 'dance', 'electronic', 'comedy']
+  },
+  relatedActs: {
+    type: Array
   },
   price: {
     type: String
