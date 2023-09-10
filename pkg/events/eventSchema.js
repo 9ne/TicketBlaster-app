@@ -25,9 +25,12 @@ const eventSchema = new mongoose.Schema({
     type: String,
     enum: ['rock', 'metal', 'heavy metal', 'dance', 'electronic', 'comedy']
   },
-  relatedActs: {
-    type: Array
-  },
+  relatedActs: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'event'
+    }
+  ],
   price: {
     type: String
   }

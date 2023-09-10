@@ -4,8 +4,8 @@ import axios from 'axios';
 import './event-style/events-style.css';
 
 export const Events = () => {
-
   const [events, setEvents] = useState([]);
+
 
   const getEvents = async () => {
     try {
@@ -37,7 +37,7 @@ export const Events = () => {
                   </div>
                 </div>
                 <div className="inside-hero-img-right">
-                  <Link to={`/one-event/${events[0]._id}`} className="get-tickets-btn-hero">Get Tickets</Link>
+                  <Link to={`/event/${events[0]._id}`} className="get-tickets-btn-hero">Get Tickets</Link>
                 </div>
               </div>
             </div>
