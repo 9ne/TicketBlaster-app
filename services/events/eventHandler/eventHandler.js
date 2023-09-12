@@ -40,7 +40,12 @@ const getOneEvent = async (req, res) => {
 
 const createEvent = async (req, res) => {
   try {
-
+    console.log(req.file);
+    let newImage = req.body.image;
+    if(req.file) {
+      newImage = req.file.filename;
+    };
+    console.log(newImage);
     const newEvent = await Event.create(req.body);
     res.status(200).json({
       status: 'Success',
@@ -52,7 +57,7 @@ const createEvent = async (req, res) => {
   } catch(err) {
     res.status(404).json({
       status: 'Fail',
-      message: err
+      message: err.message
     });
   }
 };

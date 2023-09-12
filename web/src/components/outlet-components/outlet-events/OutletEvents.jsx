@@ -6,6 +6,8 @@ import axios from 'axios';
 export const OutletEvents = () => {
   const [events, setEvents] = useState([]);
   const [showPopUp, setShowPopUp] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+
 
   const getEvents = async () => {
     try {
@@ -19,6 +21,26 @@ export const OutletEvents = () => {
   const deleteEventPopUp = () => {
     setShowPopUp(!showPopUp);
   };
+
+  const deleteEvent = async () => {
+    try {
+      if (!selectedEvent) {
+        console.log('no selected event');
+        return;
+      };
+      console.log('selected event:', selectedEvent);
+
+      const response = await axios.delete(`/api/v1/event/delete-event/${selectedEvent}`);
+      console.log(response);
+      if (response.status === 204) {
+        setEvents(prevEvents => prevEvents.filter(event => event._id !== selectedEvent))
+        setShowPopUp(false);
+      };
+
+    } catch(err) {  
+      console.log(err);
+    }
+  }
 
   useEffect(() => {
     getEvents()
@@ -42,7 +64,15 @@ export const OutletEvents = () => {
                 </div>
               </div>
               <div className="events-admin-flex-right">
-                <Link className="event-admin-delete-btn" onClick={deleteEventPopUp}>Delete Event</Link>
+                <Link 
+                  className="event-admin-delete-btn" 
+                  onClick={() => {
+                    deleteEventPopUp();
+                    setSelectedEvent(event._id);
+                  }}
+                  >
+                  Delete Event
+                </Link>
               </div>
             </div> 
             )
@@ -54,8 +84,18 @@ export const OutletEvents = () => {
           <h2 className="popup-admin-title">Are you sure?</h2>
           <p className="popup-admin-text">You are about to delete an event from the system. Please proceed with caution.</p>
           <div className="popup-admin-flex">
-            <Link className="popup-cancel" onClick={() => setShowPopUp(false)}>Cancel</Link>
-            <Link className="popup-delete-event-btn">Delete Event</Link>
+            <Link 
+              className="popup-cancel" 
+              onClick={() => setShowPopUp(false)}
+            >
+              Cancel
+            </Link>
+            <Link 
+              className="popup-delete-event-btn"
+              onClick={() => deleteEvent(selectedEvent)}
+              >
+                Delete Event
+            </Link>
           </div>
         </div>
       )}

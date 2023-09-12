@@ -5,7 +5,7 @@ const eventSchema = new mongoose.Schema({
     type: String
   },
   date: {
-    type: String
+    type: Date
   },
   location : {
     type: String
@@ -19,7 +19,6 @@ const eventSchema = new mongoose.Schema({
   },
   image: {
     type: String,
-    default: 'default-image-event.png'
   },
   genre: {
     type: String,

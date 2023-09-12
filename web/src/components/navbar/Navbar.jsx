@@ -64,8 +64,8 @@ export const Navbar = () => {
              />
             {isLoggedIn ? (
               <>
-                <li><Link to='/'><i class="fa-solid fa-cart-shopping fa-lg cart"></i></Link></li>
-                <li><Link to='/user/user-details'><i class="fa-solid fa-user fa-lg user"></i></Link></li>
+                <li><Link to='/'><i className="fa-solid fa-cart-shopping fa-lg cart"></i></Link></li>
+                <li><Link to='/user/user-details'><i className="fa-solid fa-user fa-lg user"></i></Link></li>
               </>
             ) : (
               <>

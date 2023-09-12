@@ -113,31 +113,37 @@ export const OutletUsers = () => {
                 { user.role === 'admin' && (
                   <>
                     <Link 
-                    className="users-admin-make-user-btn" 
-                    onClick={() => {
+                      className="users-admin-make-user-btn" 
+                      onClick={() => {
                       setSelectedUser(user._id);
                       makeUser();
                     }}
-                    >Make User</Link>
+                    >
+                      Make User
+                    </Link>
                   </>
                 )}
                 { user.role === 'user' && (
                   <>
                     <Link 
-                    className="users-admin-make-btn"
-                    onClick={() => {
+                      className="users-admin-make-btn"
+                      onClick={() => {
                       setSelectedUser(user._id);
                       makeAdmin()
-                    }}>Make Admin</Link>
+                    }}>
+                      Make Admin
+                    </Link>
                   </>
                 )}
                 
-                <Link className=
-                "users-admin-delete-btn"
-                 onClick={() => {
+                <Link 
+                  className="users-admin-delete-btn"
+                  onClick={() => {
                   setSelectedUser(user._id);
                   deleteUserPop();
-                }}>Delete User</Link>
+                  }}>
+                    Delete User
+                </Link>
               </div>
             </div> 
             )
