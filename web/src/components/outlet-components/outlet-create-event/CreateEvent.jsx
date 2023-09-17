@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './outlet-create-event-style/create-event.css';
 import axios from 'axios';
 
@@ -8,27 +9,74 @@ export const CreateEvent = () =>  {
   const [selectedEventToAdd, setSelectedEventToAdd] = useState(null);
   const [relatedEvents, setRelatedEvents] = useState([]);
   const [events, setEvents] = useState([]);
+  const [selectedImage, setSelectedImage] = useState(null);
   const [eventData, setEventData] = useState({
     name: '',
     category: '',
     date: '',
     eventDetails: '',
+    location: '',
     price: '',
+    image: '',
     relatedActs: [],
-    image: ''
   });
+  const navigate = useNavigate();
+
 
   // console.log(eventData);
+  const eventDataName = (e) => {
+    setEventData({...eventData, name: e.target.value});
+  };
+
+  const eventDataDate = (e) => {
+    setEventData({...eventData, date: e.target.value});
+  };
+
+  const eventDataDetails = (e) => {
+    setEventData({...eventData, eventDetails: e.target.value});
+  };
+
+  const eventDataPrice = (e) => {
+    setEventData({...eventData, price: e.target.value});
+  };
+
+  const eventDataLocation = (e) => {
+    setEventData({...eventData, location: e.target.value});
+  };
+
+  // const handleAddEvent = () => {
+  //   if (selectedEventToAdd) {
+  //     if (relatedEvents.length < 2) {
+  //       if (!relatedEvents.find((event) => event._id === selectedEventToAdd._id)) {
+  //         setRelatedEvents([...relatedEvents, selectedEventToAdd]);
+  //         setEventData({
+  //           ...eventData,
+  //           relatedActs: [...eventData.relatedActs, selectedEventToAdd._id]
+  //         });
+  //       } 
+  //     }
+  //   }
+  // };
 
   const handleAddEvent = () => {
-    if (selectedEventToAdd) {
-      if (relatedEvents.length < 2) {
-        if (!relatedEvents.find((event) => event._id === selectedEventToAdd._id)) {
-          setRelatedEvents([...relatedEvents, selectedEventToAdd]);
-        } 
-      }
-    }
+    if (!selectedEventToAdd || relatedEvents.length >= 2) return;
+
+    const eventIdToAdd = selectedEventToAdd._id.toString();
+    console.log(eventIdToAdd);
+
+    if (relatedEvents.some((event) => event._id === eventIdToAdd)) return;
+
+    setRelatedEvents([...relatedEvents, selectedEventToAdd]);
+
+    setEventData((prevEventData) => ({
+      ...prevEventData,
+      relatedActs: [
+        ...prevEventData.relatedActs,
+        eventIdToAdd,
+      ].filter((id) => typeof id === 'string')
+    }))
   };
+
 
   // console.log(relatedEvents);
   // console.log(selectedEventToAdd);
@@ -59,6 +107,7 @@ export const CreateEvent = () =>  {
   const handlePreviewImage = (e) => {
     if (e.target.files && e.target.files[0]) {
       setPreviewImage(URL.createObjectURL(e.target.files[0]));
+      setSelectedImage((e.target.files[0]));
     };
   };
 
@@ -74,13 +123,31 @@ export const CreateEvent = () =>  {
 
   const createEvent = async () => {
     try {
+      // console.log(eventData.date);
+      const formatDate = new Date(eventData.date);
+      const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+      'August', 'September', 'October', 'November', 'December'];
+
+      const formatedDate = `${months[formatDate.getMonth()]} ${formatDate.getDate()}, ${formatDate.getFullYear()}`;
+
+      const formData = new FormData();
+      formData.append('image', selectedImage);
+      formData.append('name', eventData.name);
+      formData.append('category', eventData.category);
+      formData.append('date', formatedDate);
+      formData.append('location', eventData.location);
+      formData.append('eventDetails', eventData.eventDetails);
+      formData.append('price', eventData.price);
+      formData.append('relatedActs', eventData.relatedActs);
       console.log(eventData);
-      const response = await axios.post('/api/v1/event/create-event', eventData);
-      console.log('Response:', response.data);
-      console.log('succesfully created event');
+      const response = await axios.post('/api/v1/event/create-event', formData);
+
+      navigate('/user/events');
+      // console.log('Response:', response.data);
+      // console.log('succesfully created event');
+     
     } catch(err) {
-      console.log('error:', err);
-      console.log('error response', err.response);
+      console.log(err);
     }
   };
   
@@ -103,12 +170,13 @@ export const CreateEvent = () =>  {
               type="text" 
               className="input-create-event-name"
               value={eventData.name}
-              onChange={(e) => setEventData({...eventData, name: e.target.value})}
+              onChange={eventDataName}
             />
             <div className="create-event-flex-upload-image">
               <label 
                 htmlFor="file" 
                 className="create-event-label-file"
+                name="image"
               >
                 Upload Event Art
               </label>
@@ -118,6 +186,7 @@ export const CreateEvent = () =>  {
                 id="file"
                 className="input-upload-event-art"
                 onChange={handlePreviewImage}
+                required
                 />
             </div>
             <div className="create-event-preview-image-inner">
@@ -153,7 +222,7 @@ export const CreateEvent = () =>  {
                   name="date" 
                   id="date"  
                   value={eventData.date}
-                  onChange={(e) => setEventData({...eventData, date: e.target.value})}
+                  onChange={eventDataDate}
                   className="create-event-date"
                 />
               </div>
@@ -170,24 +239,41 @@ export const CreateEvent = () =>  {
                 name="eventDetails" 
                 id="eventDetails" 
                 value={eventData.eventDetails}
-                onChange={(e) => setEventData({...eventData, eventDetails: e.target.value})}
+                onChange={eventDataDetails}
                 className="create-event-textarea">
               </textarea>
             </div>
-            <div className="create-event-flex-right-ticket-price">
-              <label 
-                htmlFor="price" 
-                className="create-event-ticket-price-title">
-                  Ticket Price
-              </label>
-              <input 
-                type="text" 
-                name="price" 
-                id="price" 
-                className="create-event-ticket-price-input"
-                value={eventData.price}
-                onChange={(e) => setEventData({...eventData, price: e.target.value})}
-              />
+            <div className="create-event-flex-right-ticket-price-location">
+              <div className="create-event-flex-right-ticket-price">
+                <label 
+                  htmlFor="price" 
+                  className="create-event-ticket-price-title">
+                    Ticket Price
+                </label>
+                <input 
+                  type="text" 
+                  name="price" 
+                  id="price" 
+                  className="create-event-ticket-price-input"
+                  value={eventData.price}
+                  onChange={eventDataPrice}
+                />
+              </div>
+              <div className="create-event-flex-right-ticket-price">
+                <label 
+                  htmlFor="location" 
+                  className="create-event-location-title">
+                    Location
+                </label>
+                <input 
+                  type="text" 
+                  name="location" 
+                  id="price" 
+                  className="create-event-location-input"
+                  value={eventData.location}
+                  onChange={eventDataLocation}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -199,7 +285,7 @@ export const CreateEvent = () =>  {
                   name="categoryRelated" 
                   id="categoryRelated"
                   className="select-related"
-                  onChange={handleAddingEvent}
+                  onChange={(e) => handleAddingEvent(e)}
                   value={selectedEventToAdd ? selectedEventToAdd.name : ''}
                   >
                   <option value=""></option>
@@ -208,7 +294,11 @@ export const CreateEvent = () =>  {
                     .map((event, i) => {
                       return(
                         <option key={i} value={event.name}>
-                          {event.name} - {event.date} - {event.location}
+                          {event.name} - {new Date(event.date).toLocaleDateString('en-US', {
+                              year: 'numeric',
+                              month: 'long',
+                              day: 'numeric'
+                            })} - {event.location}
                         </option>
                       )
                     })  
@@ -237,7 +327,13 @@ export const CreateEvent = () =>  {
                       <div className="related-events-flex-right">
                         <div className="related-events-flex-right-inner-top">
                           <p className="related-events-name">{event.name}</p>
-                          <p className="related-events-date">{event.date}</p>
+                          <p className="related-events-date">
+                            {new Date(event.date).toLocaleDateString('en-US', {
+                              year: 'numeric',
+                              month: 'long',
+                              day: 'numeric'
+                            })}
+                          </p>
                           <p className="related-events-location">{event.location}</p>
                         </div>
                         <div className="related-events-flex-right-inner-bottom">
@@ -251,7 +347,7 @@ export const CreateEvent = () =>  {
               }
             </div>
         </div>
-        <button className="save-create-event" type="button" onClick={createEvent}>Save</button>
+        <button className="save-create-event" type="submit" onClick={createEvent}>Save</button>
       </form>
     </div>
   )

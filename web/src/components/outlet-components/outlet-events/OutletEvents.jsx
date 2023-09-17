@@ -58,7 +58,13 @@ export const OutletEvents = () => {
                 <div className="events-admin-flex-left-content">
                   <p className="events-admin-name">{event.name}</p>
                   <div className="events-admin-flex-left-content-date-location">
-                    <p className="events-admin-date">{event.date}</p>
+                    <p className="events-admin-date">
+                      {new Date(event.date).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                      })}
+                    </p>
                     <p className="events-admin-location">{event.location}</p>
                   </div>
                 </div>

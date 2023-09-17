@@ -43,7 +43,13 @@ export const Concerts = () => {
                     </div>
                     <div className="concert-flex-right">
                       <p className="concert-name">{concert.name}</p>
-                      <p className="concert-date">{concert.date}</p>
+                      <p className="concert-date">
+                        {new Date(concert.date).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                        })}
+                      </p>
                       <p className="concert-details">{concert.eventDetails}</p>
                       <div className="concert-location-tickets-flex">
                         <p className='concert-location'>{concert.location}</p>

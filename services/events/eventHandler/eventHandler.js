@@ -22,7 +22,7 @@ const getAllEvents = async (req, res) => {
 
 const getOneEvent = async (req, res) => {
   try {
-    const event = await Event.findById(req.params.id);
+    const event = await Event.findById(req.params.id).populate('relatedActs');
     res.status(200).json({
       status: 'Success',
       data: {
@@ -38,15 +38,22 @@ const getOneEvent = async (req, res) => {
   }
 };
 
+
 const createEvent = async (req, res) => {
   try {
-    console.log(req.file);
-    let newImage = req.body.image;
+    let newImage = '';
     if(req.file) {
       newImage = req.file.filename;
     };
-    console.log(newImage);
-    const newEvent = await Event.create(req.body);
+    
+    const relatedActs = req.body.relatedActs.split(',');
+
+    const newEvent = await Event.create({
+      ...req.body,
+      image: newImage,
+      relatedActs: relatedActs
+    });
+
     res.status(200).json({
       status: 'Success',
       data: {
@@ -64,6 +71,8 @@ const createEvent = async (req, res) => {
 
 const updateEvent = async (req, res) => {
   try {
+    console.log(req.file);
+    console.log(req.body.image);
     if(req.file) {
       req.body.image = req.file.filename;
     };

@@ -19,32 +19,34 @@ export const Event = () => {
       const response = await axios.get(`/api/v1/event/get-one-event/${id}`);
       setEvent(response.data.data.event);
       setCategory(response.data.data.event.category)
-      console.log(response);
+      // console.log(response);
     } catch(err) {
       console.log(err);
     }
   };
 
-  const getEvents = async () => {
-    try {
-      const response = await axios.get('/api/v1/event/get-all-events') 
-      setEvents(response.data.data.event);
-      console.log(response);
-    } catch(err) {
-      console.log(err);
-    }
-  };
+  // const getEvents = async () => {
+  //   try {
+  //     const response = await axios.get('/api/v1/event/get-all-events') 
+  //     setEvents(response.data.data.event);
+  //     console.log(response);
+  //   } catch(err) {
+  //     console.log(err);
+  //   }
+  // };
+  console.log("Related Event Data:", event.relatedActs);
 
   useEffect(() => {
     if (id) {
       getEvent();
-      getEvents();
+      // getEvents();
+      // console.log(event.relatedActs);
     }
   }, [id]);
 
-  const relatedEvents = events.filter((events) => events.category === category && events._id !== id);
+  // const relatedEvents = events.filter((events) => events.category === category && events._id !== id);
 
-  console.log(relatedEvents);
+  // console.log(relatedEvents);
 
   const addToCartPopUp = (e) => {
     e.preventDefault();
@@ -61,7 +63,13 @@ export const Event = () => {
       <div className="event">
         <div className="event-header">
           <h2 className="heading-event">{event.name}</h2>
-          <p className="date-event">{event.date}</p>
+          <p className="date-event">
+            {new Date(event.date).toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            })},
+          </p>
           <p className="date-location">{event.location}</p>
         </div>
         <div className="event-content-flex">
@@ -108,7 +116,7 @@ export const Event = () => {
         </div>
       </div>
       <div className="related-events">
-        {relatedEvents && relatedEvents
+        {/* {relatedEvents && relatedEvents
           .map((relatedEvent, i) => {
             if (i >= 2) return null;
             return(
@@ -128,7 +136,17 @@ export const Event = () => {
               </div>
             )
           })
-          }
+          } */}
+        {event.relatedActs &&
+          event.relatedActs.map((relatedEvents, i) => {
+            console.log("Related Event Data:", relatedEvents);
+            return(
+              <div key={i}>
+                <h1>{relatedEvents.name}</h1>
+              </div>
+            )
+          })
+        }
       </div>
     </div>
   )

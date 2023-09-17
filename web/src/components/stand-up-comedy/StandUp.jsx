@@ -43,7 +43,13 @@ export const StandUp = () => {
                 </div>
                 <div className="stand-up-flex-right">
                   <p className="stand-up-name">{standup.name}</p>
-                  <p className="stand-up-date">{standup.date}</p>
+                  <p className="stand-up-date">
+                    {new Date(standup.date).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    })}
+                  </p>
                   <p className="stand-up-details">{standup.eventDetails}</p>
                   <div className="stand-up-location-tickets-flex">
                     <p className="stand-up-location">{standup.location}</p>

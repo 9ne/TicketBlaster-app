@@ -22,24 +22,29 @@ export const Events = () => {
   }, []);
 
   return (
-    <div id="Events">
+    <div id="Events"> 
       <div className="events-hero">
         {events && events.length > 0 && (
           <div className="event-hero">
             <div className="event-hero-content">
-              <img src={`/images/${events[0].image}`} alt={events[0].name}  className='image-hero'/>
+              <img src={`/images/${events[0].image}`} alt={events[0].name}  className="image-hero"/>
               <div className="inside-hero-img-content">
-                <div className="inside-hero-img-left">
+                <div className="inside-hero-img-content-left">
                   <h2 className="hero-heading">{events[0].name}</h2>
-                  <div className="inside-hero-img-left-flex">
-                    <p className="hero-date">{events[0].date},</p>
-                    <p>{events[0].location}</p>
+                  <div className="inside-hero-img-content-flex">
+                    <p className="hero-date">
+                      {new Date(events[0].date).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                      })}
+                      ,
+                    </p>
+                    <p className="hero-location">{events[0].location}</p>
                   </div>
                 </div>
-                <div className="inside-hero-img-right">
-                  <Link to={`/event/${events[0]._id}`} className="get-tickets-btn-hero">Get Tickets</Link>
-                </div>
               </div>
+                <Link to={`/event/${events[0]._id}`} className="get-tickets-btn-hero">Get Tickets</Link>
             </div>
           </div>
         )}
@@ -60,7 +65,13 @@ export const Events = () => {
                     </div>
                     <div className="event-flex-right">
                       <p className="event-name">{event.name}</p>
-                      <p className="event-date">{event.date}</p>
+                      <p className="event-date">
+                        {new Date(event.date).toLocaleDateString('en-US', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric'
+                        })}
+                      </p>
                       <p className="event-details">{event.eventDetails}</p>
                       <div className="event-location-tickets-flex">
                         <p className='event-location'>{event.location}</p>
@@ -89,7 +100,13 @@ export const Events = () => {
                     </div>
                     <div className="event-flex-right">
                       <p className="event-name">{event.name}</p>
-                      <p className="event-date">{event.date}</p>
+                      <p className="event-date">
+                        {new Date(event.date).toLocaleDateString('en-US', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric'
+                        })}
+                      </p>
                       <p className="event-details">{event.eventDetails}</p>
                       <div className="event-location-tickets-flex">
                         <p className='event-location'>{event.location}</p>
