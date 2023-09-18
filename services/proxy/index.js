@@ -13,6 +13,7 @@ api.use(express.static('public'));
 api.use(cors({
   origin: 'http://localhost:3000'
 }));
+
 api.use(morgan('dev'));
 
 const authProxy = proxy(`http://localhost:${process.env.AUTH_PORT}`, {
@@ -39,10 +40,17 @@ const uploadProxy = proxy(`http://localhost:${process.env.MULTER_UPLOAD_PORT}`, 
   }
 });
 
+const ecommerceProxy = proxy(`http://localhost:${process.env.ECOMMERCE_PORT}`, {
+  proxyReqPathResolver: (req) => {
+    return `/api/v1/ecommerce${req.url}`;
+  }
+});
+
 api.use('/api/v1/auth', authProxy);
 api.use('/api/v1/event', eventProxy);
 api.use('/api/v1/user', userProxy);
 api.use('/api/v1/upload', uploadProxy);
+api.use('/api/v1/ecommerce', ecommerceProxy);
 
 api.listen(process.env.PROXY_PORT, (err) => {
   if (err) return console.log(err);
