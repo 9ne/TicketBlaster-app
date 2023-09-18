@@ -7,11 +7,10 @@ import logo from '../logo/logo-dark.png';
 
 export const Event = () => {
   const [event, setEvent] = useState({});
-  const [events, setEvents] = useState([]);
   const [category, setCategory] = useState('');
   const [showPopUp, setShowPopUp] = useState(false);
   const { id } = useParams();
-  const { loginSuccess, isLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const getEvent = async () => {
@@ -25,28 +24,13 @@ export const Event = () => {
     }
   };
 
-  // const getEvents = async () => {
-  //   try {
-  //     const response = await axios.get('/api/v1/event/get-all-events') 
-  //     setEvents(response.data.data.event);
-  //     console.log(response);
-  //   } catch(err) {
-  //     console.log(err);
-  //   }
-  // };
-  console.log("Related Event Data:", event.relatedActs);
+  // console.log("Related Event Data:", event.relatedActs);
 
   useEffect(() => {
     if (id) {
       getEvent();
-      // getEvents();
-      // console.log(event.relatedActs);
     }
   }, [id]);
-
-  // const relatedEvents = events.filter((events) => events.category === category && events._id !== id);
-
-  // console.log(relatedEvents);
 
   const addToCartPopUp = (e) => {
     e.preventDefault();
@@ -103,7 +87,7 @@ export const Event = () => {
                 <p className="pop-up-text">You are not logged in. Please log in or create an account to add items to your cart.</p>
                 <button type="button" className="login-pop-up" onClick={() => navigate('/login')}>Log in</button>
                 <button type="button" className="create-pop-up" onClick={() => navigate('/create-account')}>Create Account</button>
-                <button type="button" className="pop-up-close" onClick={() => setShowPopUp(false)}><i class="fa-solid fa-x"></i></button>
+                <button type="button" className="pop-up-close" onClick={() => setShowPopUp(false)}><i className="fa-solid fa-x"></i></button>
               </div>
             </div>
             )}
@@ -115,34 +99,30 @@ export const Event = () => {
           <h2 className="related-heading">Related Acts</h2>
         </div>
       </div>
-      <div className="related-events">
-        {/* {relatedEvents && relatedEvents
-          .map((relatedEvent, i) => {
-            if (i >= 2) return null;
-            return(
-              <div className="related-events-flex" key={i}>
-                <div className="related-event-flex-left">
-                    <img src={`/images/${relatedEvent.image}`} alt={relatedEvent.name} className="related-event-image" />
-                </div>
-                <div className="related-event-flex-right">
-                  <p className="related-event-name">{relatedEvent.name}</p>
-                  <p className="related-event-date">{relatedEvent.date}</p>
-                  <p className="related-event-details">{relatedEvent.eventDetails}</p>
-                  <div className="related-event-location-tickets-flex">
-                    <p className="related-event-location">{relatedEvent.location}</p>
-                    <Link to={`/one-event/${relatedEvent._id}`} className="related-event-location-link">Get Tickets</Link>
-                    </div>
-                </div>
-              </div>
-            )
-          })
-          } */}
+      <div className="related-events-flex">
         {event.relatedActs &&
           event.relatedActs.map((relatedEvents, i) => {
-            console.log("Related Event Data:", relatedEvents);
+            // console.log('related events:', relatedEvents);
             return(
-              <div key={i}>
-                <h1>{relatedEvents.name}</h1>
+              <div key={i} className="related-acts-flex">
+                <div className="relaed-acts-flex-left">
+                  <img src={`/images/${relatedEvents.image}`} alt={relatedEvents.name} className="image-relatet-acs"/>
+                  <div className="related-acts-inner-flext-right">
+                    <h2 className="related-acts-tittle">{relatedEvents.name}</h2>
+                    <h2 className="related-acts-date">{new Date(event.date)
+                      .toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                      })}
+                    </h2>
+                    <p className="related-acts-about">{relatedEvents.eventDetails}</p>
+                    <div className="related-acts-button-location-flex">
+                      <p className="related-acts-location">{relatedEvents.location}</p>
+                      <Link to={`/event/${relatedEvents._id}`} className="related-event-location-link">Get Tickets</Link>
+                    </div>
+                  </div>
+                </div>
               </div>
             )
           })
