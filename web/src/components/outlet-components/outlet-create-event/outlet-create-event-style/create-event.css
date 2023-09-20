@@ -243,12 +243,13 @@
   color: #cb0000;
 }
 
-#related-events {
+ #related-events {
   display: flex;
   align-items: center;
   gap: 2.21rem;
   margin-bottom: 7.2rem;
 }
+
 
 .related-events-img {
   width: 14.2rem;
@@ -256,6 +257,8 @@
   object-fit: cover;
   border-radius: 20px;
 }
+
+
 
 .related-events-flex-right {
   display: flex;
@@ -340,6 +343,7 @@
     outline: none;
 }
 
-
-
-
+ .related-events-flex {
+  display: flex;
+  gap: 20px;
+ }

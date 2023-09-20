@@ -1,10 +1,63 @@
-import React from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { AuthContext } from '../../../Context/AuthContext';
+import { Link } from 'react-router-dom';
 import './outlet-tickets-history-style/outlet-tickets-history.css';
+import axios from 'axios';
 
 export const OutletTicketsHistory = () => {
+  const [tickets, setTickets] = useState([]);
+  const { userId } = useContext(AuthContext);
+
+  const isEventOutdated = (eventDate) => {
+    const currentDate = new Date();
+    return currentDate > new Date(eventDate);
+  }
+
+
+  const getAllTickets = async () => {
+    try {
+      const response = await axios.get(`/api/v1/ecommerce/get-tickets-user/${userId}`)
+      setTickets(response.data.data.ticket.tickets);
+      console.log(response);
+    } catch(err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getAllTickets();
+  }, []);
+
   return(
     <div id="outlet-tickets-history">
-      <h1>Tickets History</h1>
+      <div className="outlet-tickets-history-flex">
+        {tickets && 
+          tickets.map((ticket, i) => {
+            const isOutdated = isEventOutdated(ticket.date);
+            const ticketAddClass = isOutdated ? 'outlet-ticket-history-flex opacity-event' : 'outlet-ticket-history-flex'
+            return(
+              <div className="outlet-ticket-history-flex" key={i}>
+                <img src={`/images/${ticket.image}`} alt={ticket.name} className="ticket-history-image" />
+                <div className="ticket-history-inner-flex">
+                  <h2 className="ticket-history-title">{ticket.name}</h2>
+                  <p className="ticket-history-date">
+                    {new Date(ticket.date).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    })},
+                  </p>
+                  <p className="ticket-history-details">{ticket.eventDetails}</p>
+                  <div className="ticket-history-location-button-flex">
+                    <p className="ticket-history-details-location">{ticket.location}</p>
+                    <Link className="tickets-history-button-print">Print</Link>
+                  </div>
+                </div>
+              </div>
+            )
+          })  
+        }
+      </div>
     </div>
   )
 };

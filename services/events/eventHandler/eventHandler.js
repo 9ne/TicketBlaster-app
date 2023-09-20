@@ -38,7 +38,6 @@ const getOneEvent = async (req, res) => {
   }
 };
 
-
 const createEvent = async (req, res) => {
   try {
     let newImage = '';

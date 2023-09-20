@@ -20,8 +20,8 @@ export const CreateEvent = () =>  {
     image: '',
     relatedActs: [],
   });
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
 
   // console.log(eventData);
   const eventDataName = (e) => {
@@ -141,11 +141,10 @@ export const CreateEvent = () =>  {
       formData.append('relatedActs', eventData.relatedActs);
       console.log(eventData);
       const response = await axios.post('/api/v1/event/create-event', formData);
-
-      navigate('/user/events');
+      console.log(response);
       // console.log('Response:', response.data);
       // console.log('succesfully created event');
-     
+      navigate('/user/events');
     } catch(err) {
       console.log(err);
     }
@@ -347,7 +346,7 @@ export const CreateEvent = () =>  {
               }
             </div>
         </div>
-        <button className="save-create-event" type="submit" onClick={createEvent}>Save</button>
+        <button className="save-create-event" type="button" onClick={createEvent}>Save</button>
       </form>
     </div>
   )

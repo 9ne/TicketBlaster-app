@@ -88,10 +88,6 @@ const logOut = (req, res) =>  {
   });
 };
 
-
-
-
-
 // res.clearCookie('jwt');
 //   res.status(200).json({
 //     status: 'Success',

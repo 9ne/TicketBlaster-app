@@ -1,3 +1,75 @@
 .nav-link-tickets.active {
   color: #FF48AB
 }
+
+#outlet-tickets-history {
+  margin-top: 2.7rem;
+}
+
+.ticket-history-image {
+  width: 18.5rem;
+  height: 11rem;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+.outlet-tickets-history-flex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.outlet-ticket-history-flex {
+  width: 41rem;
+  display: flex;
+  gap: 1.2rem;
+}
+
+.ticket-history-title {
+  font-size: 1.7rem;
+  font-weight: bold;
+}
+
+.ticket-history-date {
+  color: #FF48AB;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.ticket-history-details {
+  font-size: 0.9rem;
+  color: #393939;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-top: 5px;
+}
+
+.ticket-history-location-button-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.ticket-history-details-location {
+  font-weight: bold;
+}
+
+.tickets-history-button-print {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 9rem;
+  height: 2.3rem;
+  background-color: #000;
+  color: #fff;
+  border-radius: 20px;
+}
+
+.opacity-event { 
+  opacity: 0.3;
+}
+
+

@@ -27,13 +27,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     enum: ['user', 'admin'],
     default: 'user'
-  },
-  tickets: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'ticket'
-    }
-  ]
+  }
 });
 
 userSchema.pre('save', async function(next) {
