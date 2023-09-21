@@ -4,6 +4,7 @@
 
 #outlet-tickets-history {
   margin-top: 2.7rem;
+  position: relative;
 }
 
 .ticket-history-image {
@@ -71,5 +72,83 @@
 .opacity-event { 
   opacity: 0.3;
 }
+
+/* Popup */
+
+.popup-print {
+  width: 38rem;
+  height: 47.3rem;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border: none;
+  box-shadow: 0px 20px 40px #00000029;
+  z-index: 10;
+  border-radius: 20px;
+  cursor: pointer;
+  padding: 3.2rem;
+}
+
+.popup-print-image {
+  height: 18.7rem;
+  width: 31.6rem;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+.popup-logo-dark {
+  height: 2.8rem;
+  width: 18.2rem;
+  margin-top: 5px;
+}
+
+.image-qr {
+  height: 10rem;
+  object-fit: cover;
+}
+
+.popup-print-flex-bottom-inner {
+  display: flex;
+  justify-content: space-between;
+}
+
+.popup-print-flex-bottom-inner-left {
+  display: block;
+}
+
+.popup-print-flex-bottom-inner-right {
+  display: block;
+}
+
+.popup-print-flex-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.6rem;
+  margin-bottom: 2.7rem;
+}
+
+.popup-print-title {
+  font-size: 3.14rem;
+  font-weight: bold;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.popup-print-date {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #FF48AB;
+}
+
+.popup-print-location {
+  color: #393939;
+  font-weight: bold;
+}
+
 
 
