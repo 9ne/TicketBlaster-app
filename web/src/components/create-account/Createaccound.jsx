@@ -141,7 +141,7 @@ export const Createaccount = () => {
             <img src={logo} alt="logo" className="pop-up-logo-create-account" />
             <p className="pop-up-text-create-account">Succesfully created account! Proceed to log in.</p>
             <Link to="/login" className="proceed-to-log-in">Log in</Link>
-            <button type="button" className="pop-up-close-create-account" onClick={() => setAccountCreatedPopUp(false)}><i class="fa-solid fa-x"></i></button>
+            <button type="button" className="pop-up-close-create-account" onClick={() => setAccountCreatedPopUp(false)}><i className="fa-solid fa-x"></i></button>
           </div>
         )}
         <Link to="/login" className="already-have-btn">Already have an account?</Link>

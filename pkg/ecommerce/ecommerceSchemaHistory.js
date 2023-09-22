@@ -1,12 +1,11 @@
-const mongoose = require ('mongoose');
-const Event = require('../events/eventSchema');
+const mongoose = require('mongoose');
 
-const ticketSchema = new mongoose.Schema({
+const ticketHistorySchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user'
   },
-  tickets: [
+  historyTickets: [
     {
       event: {
         type: mongoose.Schema.Types.ObjectId,
@@ -19,6 +18,6 @@ const ticketSchema = new mongoose.Schema({
   ]
 });
 
-const Ticket = mongoose.model('Ticket', ticketSchema);
+const TicketsHistory = mongoose.model('ticketHistory', ticketHistorySchema);
 
-module.exports = Ticket;
+module.exports = TicketsHistory;

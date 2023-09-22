@@ -24,6 +24,7 @@
   width: 41rem;
   display: flex;
   gap: 1.2rem;
+  margin-bottom: 2rem;
 }
 
 .ticket-history-title {
@@ -147,6 +148,11 @@
 
 .popup-print-location {
   color: #393939;
+  font-weight: bold;
+}
+
+.tickets-history-no-tickets {
+  font-size: 1.2rem;
   font-weight: bold;
 }
 

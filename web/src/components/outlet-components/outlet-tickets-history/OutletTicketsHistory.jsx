@@ -24,7 +24,7 @@ export const OutletTicketsHistory = () => {
 
   const getAllTickets = async () => {
     try {
-      const response = await axios.get(`/api/v1/ecommerce/get-tickets-user/${userId}`)
+      const response = await axios.get(`/api/v1/ecommerce/get-tickets-user/${userId}`);
       setTickets(response.data.data.ticket.tickets);
       console.log(response);
     } catch(err) {
@@ -38,9 +38,11 @@ export const OutletTicketsHistory = () => {
 
   return(
     <div id="outlet-tickets-history">
-      <div className="outlet-tickets-history-flex">
-        {tickets && 
-          tickets.map((ticket, i) => {
+      {tickets.length === 0 ? (
+        <p className="tickets-history-no-tickets">No tickets history available.</p>
+      ) : (
+        <div className="outlet-tickets-history-flex">
+         {tickets.map((ticket, i) => {
             const isOutdated = isEventOutdated(ticket.date);
             const ticketAddClass = isOutdated ? 'outlet-ticket-history-flex opacity-event' : 'outlet-ticket-history-flex'
             return(
@@ -74,6 +76,7 @@ export const OutletTicketsHistory = () => {
           })  
         }
       </div>
+      )}
       {popupPrint && popupDetailsPrint && (
         <div className="popup-print" onClick={popupPrintClose}>
           <div className="popup-print-flex">

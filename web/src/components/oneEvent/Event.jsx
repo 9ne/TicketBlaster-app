@@ -10,7 +10,7 @@ export const Event = () => {
   const [category, setCategory] = useState('');
   const [showPopUp, setShowPopUp] = useState(false);
   const { id } = useParams();
-  const { isLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn, userId } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const getEvent = async () => {
@@ -24,7 +24,32 @@ export const Event = () => {
     }
   };
 
-  // console.log("Related Event Data:", event.relatedActs);
+
+
+  const addToCart = async () => {
+    try {
+      const quantityInput = document.getElementById('count');
+      const quantity = quantityInput.value;
+      console.log(quantity);
+
+      const response = await axios.post('/api/v1/ecommerce/add-ticket', {
+        user: userId,
+        tickets: [{ event: id, quantity }]
+      });
+      console.log(response);
+
+      if (response.data.status === 'Success') {
+        console.log('cart updated succesfully');
+      } else {
+        console.error('Api error:', response.data.message);
+      }
+
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // console.log('related events:', event.relatedActs);
 
   useEffect(() => {
     if (id) {
@@ -37,9 +62,11 @@ export const Event = () => {
     if (!isLoggedIn) {
       setShowPopUp(true);
     } else {
-      setShowPopUp(false);
+      addToCart();
     };
   };
+
+
 
 
   return (
@@ -73,9 +100,20 @@ export const Event = () => {
                   <p className="tickets-price">{event.price}</p>
                 </div>
                 <div className="tickets-form">
-                  <form method="post" id="count">
-                    <input type="number" name="count" id="count" placeholder="1" />
-                    <button type="button" className="button-add" onClick={addToCartPopUp}>Add to cart</button>
+                  <form method="post" id="form-quantity">
+                    <input 
+                      type="number"
+                      name="quantity"
+                      id="count" 
+                      placeholder="1"
+                     />
+                    <button 
+                      type="button" 
+                      className="button-add" 
+                      onClick={addToCartPopUp}
+                      >
+                      Add to cart
+                    </button>
                   </form>
                 </div>
               </div>
