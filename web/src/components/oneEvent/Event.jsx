@@ -28,15 +28,21 @@ export const Event = () => {
 
   const addToCart = async () => {
     try {
-      const quantityInput = document.getElementById('count');
-      const quantity = quantityInput.value;
+      let quantityInput = document.getElementById('count');
+      let quantity = quantityInput.value;
       console.log(quantity);
+
+      if (!quantity || quantity <= 0) {
+        quantity = 1;
+        quantityInput.value = quantity
+      }
 
       const response = await axios.post('/api/v1/ecommerce/add-ticket', {
         user: userId,
         tickets: [{ event: id, quantity }]
       });
       console.log(response);
+      navigate('/shopping-cart');
 
       if (response.data.status === 'Success') {
         console.log('cart updated succesfully');

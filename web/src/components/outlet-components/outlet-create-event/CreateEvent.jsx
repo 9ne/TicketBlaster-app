@@ -44,20 +44,6 @@ export const CreateEvent = () =>  {
     setEventData({...eventData, location: e.target.value});
   };
 
-  // const handleAddEvent = () => {
-  //   if (selectedEventToAdd) {
-  //     if (relatedEvents.length < 2) {
-  //       if (!relatedEvents.find((event) => event._id === selectedEventToAdd._id)) {
-  //         setRelatedEvents([...relatedEvents, selectedEventToAdd]);
-  //         setEventData({
-  //           ...eventData,
-  //           relatedActs: [...eventData.relatedActs, selectedEventToAdd._id]
-  //         });
-  //       } 
-  //     }
-  //   }
-  // };
-
   const handleAddEvent = () => {
     if (!selectedEventToAdd || relatedEvents.length >= 2) return;
 
