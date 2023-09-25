@@ -18,7 +18,17 @@ export const Checkout = () => {
     };
   };
 
-  
+  const payNow = async () => {
+    try {
+      const payload = {
+        userId: userId
+      }
+      await axios.post(`/api/v1/ecommerce/process-payment/`, payload);
+    } catch(err) {
+      console.log(err);
+    }
+  };
+
   const calculateTotalPrice = (ticket) => {
     const quantity = ticket.quantity;
     const price = ticket.event.price;
@@ -37,6 +47,8 @@ export const Checkout = () => {
   };
 
   const totalAmountForAllTickets = calculateTotalAmount();
+
+  
 
   useEffect(() => {
     checkOut();
@@ -107,7 +119,7 @@ export const Checkout = () => {
           <Link to='/shopping-cart' className="checkout-back-button">Back</Link>
         </div>
         <div className="checkout-container">
-            <Link className="checkout-pay-button">Pay Now</Link>
+            <Link to='/purchase-complete' className="checkout-pay-button" onClick={payNow}>Pay Now</Link>
         </div>
       </div>
     </div>

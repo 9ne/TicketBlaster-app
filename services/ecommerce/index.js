@@ -14,10 +14,10 @@ api.use(express.urlencoded({extended: true}));
 api.use(express.static('public'));
 
 api.post('/api/v1/ecommerce/add-ticket/', ecommerce.addTicket); // cart
-
-api.get('/api/v1/ecommerce/get-tickets', ecommerce.getAllTickets);
-api.get('/api/v1/ecommerce/get-ticket/:userId', ecommerce.getTicket);
+api.post('/api/v1/ecommerce/process-payment/', ecommerce.processPaymentAddToHistory);
 api.get('/api/v1/ecommerce/get-tickets-user/:userId', ecommerce.getTicketsForUser);
+api.get('/api/v1/ecommerce/get-latest-tickets/:userId', ecommerce.getLastestTickets);
+api.get('/api/v1/ecommerce/get-all-user-tickets-history/:userId', ecommerce.getAllTicketsHistoryOfUser);
 api.delete('/api/v1/ecommerce/delete-event-from-cart/:ticketId/:eventToRemove', ecommerce.removeEventfromTicket);
 
 api.listen(process.env.ECOMMERCE_PORT, (err) => {

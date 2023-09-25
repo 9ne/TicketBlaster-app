@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Ticket = require('./ecommerceSchema');
 
 const ticketHistorySchema = new mongoose.Schema({
   user: {
@@ -13,11 +14,15 @@ const ticketHistorySchema = new mongoose.Schema({
       },
       quantity: {
         type: Number
+      },
+      timeStamp: {
+        type: Date,
+        default: Date.now()
       }
     }
   ]
 });
 
-const TicketsHistory = mongoose.model('ticketHistory', ticketHistorySchema);
+const TicketsHistory = mongoose.model('ticketsHistory', ticketHistorySchema);
 
 module.exports = TicketsHistory;

@@ -55,51 +55,13 @@ const addTicket = async (req, res) => {
   }
 };
 
-const getAllTickets = async (req, res) => {
-  try {
-    const getTickets = await Ticket.find();
-
-    res.status(200).json({
-      status: 'Success',
-      data: {
-        getTickets
-      }
-    });
-
-    } catch(err) {
-    res.status(404).json({
-      status: 'Fail',
-      message: err.message
-    });
-  }
-};
-
-const getTicket = async (req, res) => {
-  try {
-
-    const ticket = await Ticket.findById(req.params.id);
-
-    res.status(200).json({
-      status: 'Success',
-      data: {
-        ticket
-      }
-    });
-  } catch(err) {
-    res.status(404).json({
-      status: 'Fail',
-      message: err
-    });
-  }
-};
-
 const getTicketsForUser = async (req, res) => {
   try {
 
     const userId = req.params.userId;
     console.log(userId);
 
-    const ticket = await Ticket.findOne({user: userId })
+    const ticket = await Ticket.findOne({ user: userId })
       .populate({
         path: 'tickets.event',
         model: 'event',
@@ -120,6 +82,132 @@ const getTicketsForUser = async (req, res) => {
     });
   }
 };
+
+const processPaymentAddToHistory = async (req, res) => {
+  try {
+    const userId = req.body.userId;
+    
+    let userTicket = await Ticket.findOne({ user: userId });
+
+    if(!userTicket) {
+      return res.status(404).json({
+        status: 'Fail',
+        message: 'Cannot find user ticket'
+      });
+    };
+
+    const ticketsHistory = await TicketHistory.findOne({ user: userId });
+
+    if (!ticketsHistory) {
+      ticketsHistory = await TicketHistory.create({ 
+        user: userId,
+        historyTickets: [],
+      });
+    };
+
+    const newTickets = userTicket.tickets.map((ticket) => ({
+      event: ticket.event,
+      quantity: ticket.quantity
+    }))
+
+    ticketsHistory.historyTickets.push(...userTicket.tickets);
+
+    await ticketsHistory.save();
+
+    userTicket.tickets = [];
+
+    await userTicket.save();
+
+    res.status(200).json({
+      status: 'Sucess',
+      data: {
+        ticketsHistory
+      }
+    });
+
+  } catch(err) {
+    res.status(500).json({
+      status: 'Fail',
+      message: err.message
+    });
+  }
+};
+ 
+const getLastestTickets = async (req, res) => {
+  try { 
+    const userId = req.params.userId;
+
+    const latestTickets = await TicketHistory.findOne({ user: userId })
+      .populate({
+        path: 'historyTickets.event',
+        model: 'event',
+        select: '-relatedActs'
+      });
+
+    if (!latestTickets || !latestTickets.historyTickets.length) {
+      return res.status(404).json({
+        status: 'Fail',
+        message: 'No tickets found for that user'
+      });
+    };
+
+    latestTickets.historyTickets.sort((a, b) => b.timeStamp - a.timeStamp);
+
+    const mostLatestTickets = latestTickets.historyTickets[0].timeStamp;
+    const mostLatestEvents = latestTickets.historyTickets.filter((event) => event.timeStamp === mostLatestTickets);
+
+    res.status(200).json({
+      status: 'Success',
+      data: {
+        mostLatestEvents
+      }
+    });
+
+  } catch(err) {
+    res.status(500).json({
+      status: 'Fail',
+      message: err.message
+    });
+  }
+};
+
+const getAllTicketsHistoryOfUser = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    console.log(userId);
+
+    const findAllTickets = await TicketHistory.findOne({ user: userId })
+      .populate({
+        path: 'historyTickets.event',
+        model: 'event',
+        select: '-relatedActs'
+      });
+
+    if (!findAllTickets) {
+      return res.status(404).json({
+        status: 'Fail',
+        message: 'No ticket history found for this user'
+      });
+    }
+
+    findAllTickets.historyTickets.sort((a, b) => b.timeStamp - a.timeStamp);
+
+    res.status(200).json({
+      status: 'Sucess',
+      data: {
+        findAllTickets
+      }
+    });
+
+  } catch(err) {
+    res.status(404).json({
+      status: 'Fail',
+      message: err.message
+    });
+  }
+};
+
 
 const removeEventfromTicket = async (req, res) => {
   try {
@@ -158,8 +246,9 @@ const removeEventfromTicket = async (req, res) => {
 
 module.exports = {
   addTicket,
-  getAllTickets,
-  getTicket,
   removeEventfromTicket,
-  getTicketsForUser
+  getTicketsForUser,
+  getLastestTickets,
+  processPaymentAddToHistory,
+  getAllTicketsHistoryOfUser
 }

@@ -40,7 +40,7 @@ export const ShoppingCart = () => {
     const priceSplited = price.split('$');
     const priceNumber = Number(priceSplited[1]);
     return quantity * priceNumber;
-  }
+  };
 
   useEffect(() => {
     currentTickets();

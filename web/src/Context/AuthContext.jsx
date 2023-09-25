@@ -36,6 +36,7 @@ export const AuthProvider = ({ children }) => {
         // console.log(response);
         const oneUser = response.data.data.oneUser;
         setUserDefaultImage(oneUser.image);
+        console.log(oneUser);
         console.log("slika:", oneUser.image);
         setUserName(oneUser.name);
         setUserEmail(oneUser.email);
