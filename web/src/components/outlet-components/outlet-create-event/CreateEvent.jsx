@@ -60,7 +60,7 @@ export const CreateEvent = () =>  {
         ...prevEventData.relatedActs,
         eventIdToAdd,
       ].filter((id) => typeof id === 'string')
-    }))
+    }));
   };
 
 
