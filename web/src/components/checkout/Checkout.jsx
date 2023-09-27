@@ -11,7 +11,7 @@ export const Checkout = () => {
   const checkOut = async () => {
     try {
       const response = await axios.get(`/api/v1/ecommerce/get-tickets-user/${userId}`);
-      console.log(response);
+      // console.log(response);
       setCheckoutTickets(response.data.data.ticket.tickets);
     } catch(err) {
       console.log(err);

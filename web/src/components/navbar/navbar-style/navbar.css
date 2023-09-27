@@ -50,19 +50,6 @@ ul li a {
   justify-content: center;
 }
 
-/* .style-hover {
-  color: #D3D3D3;
-  transition: all ease 0.2s;
-}
-
-.style-hover-focus {
-  color: #FF48AB;
-}
-
-.style-hover:hover {
-  color: #FF48AB;
-} */
-
 .search-bar {
   padding: 1.1rem .8rem .8rem 1.2rem;
   border-radius: 20px;
@@ -123,7 +110,6 @@ ul li .cart {
 ul li i {
   color: #FF48AB;
 }
-
 
 .concerts.active,
 .stand-up.active {

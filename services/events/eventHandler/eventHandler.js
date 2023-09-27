@@ -4,7 +4,7 @@ const getAllEvents = async (req, res) => {
   try {
     const event = await Event.find().populate('relatedActs');
     event.sort((a, b) => new Date(a.date) - new Date(b.date));
-    console.log(new Date());
+    // console.log(new Date());
     res.status(200).json({
       status: 'success',
       data: {
@@ -70,8 +70,8 @@ const createEvent = async (req, res) => {
 
 const updateEvent = async (req, res) => {
   try {
-    console.log(req.file);
-    console.log(req.body.image);
+    // console.log(req.file);
+    // console.log(req.body.image);
     if(req.file) {
       req.body.image = req.file.filename;
     };

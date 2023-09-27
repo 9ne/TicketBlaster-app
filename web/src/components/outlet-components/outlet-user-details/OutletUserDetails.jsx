@@ -27,8 +27,6 @@ export const OutletUserDetails = () => {
   const emailChange = (e) => {
     setNewEmail(e.target.value);
   };
-
-
   
   const newUserDataUpload = async () => {
     try {

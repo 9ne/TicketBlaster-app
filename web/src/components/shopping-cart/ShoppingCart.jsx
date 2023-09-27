@@ -13,7 +13,7 @@ export const ShoppingCart = () => {
     try {
       const response = await axios.get(`/api/v1/ecommerce/get-tickets-user/${userId}`);
       setAddedTickets(response.data.data.ticket.tickets)
-      console.log(response);
+      // console.log(response);
       setTicketId(response.data.data.ticket._id);
       
       
@@ -23,8 +23,8 @@ export const ShoppingCart = () => {
   };
 
   const removeEventFromCart = async (ticketId, eventToRemoveId) => {
-    console.log(ticketId);
-    console.log(eventToRemoveId);
+    // console.log(ticketId);
+    // console.log(eventToRemoveId);
     try {
       const response = await axios.delete(`api/v1/ecommerce/delete-event-from-cart/${ticketId}/${eventToRemoveId}`);
       console.log(response);

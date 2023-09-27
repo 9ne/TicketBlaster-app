@@ -30,7 +30,7 @@ export const Event = () => {
     try {
       let quantityInput = document.getElementById('count');
       let quantity = quantityInput.value;
-      console.log(quantity);
+      // console.log(quantity);
 
       if (!quantity || quantity <= 0) {
         quantity = 1;
@@ -43,12 +43,6 @@ export const Event = () => {
       });
       console.log(response);
       navigate('/shopping-cart');
-
-      if (response.data.status === 'Success') {
-        console.log('cart updated succesfully');
-      } else {
-        console.error('Api error:', response.data.message);
-      }
 
     } catch (err) {
       console.log(err);

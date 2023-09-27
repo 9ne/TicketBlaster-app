@@ -19,7 +19,7 @@ export const PurchaseComplete = () => {
   const getRecentPurchasedTickets = async () => {
     try {
       const response = await axios.get(`/api/v1/ecommerce/get-latest-tickets/${userId}`);
-      console.log(response);
+      // console.log(response); 
       setPurchasedItems(response.data.data.mostLatestEvents);
     } catch(err) {
       console.log(err);

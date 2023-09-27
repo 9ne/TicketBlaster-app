@@ -1,6 +1,5 @@
 const Ticket = require('../../../pkg/ecommerce/ecommerceSchema');
 const TicketHistory = require('../../../pkg/ecommerce/ecommerceSchemaHistory');
-const User = require('../../../pkg/user/userSchema');
 
 const addTicket = async (req, res) => {
   try {
@@ -10,7 +9,7 @@ const addTicket = async (req, res) => {
 
     const loggedUser = await Ticket.findOne({ user });
 
-    console.log(loggedUser);
+    // console.log(loggedUser);
  
     if (loggedUser) {
 
@@ -24,7 +23,7 @@ const addTicket = async (req, res) => {
 
       await loggedUser.save();
 
-      console.log('saved logged user:', loggedUser);
+      // console.log('saved logged user:', loggedUser);
 
       res.status(201).json({
         status: 'Success',
@@ -39,7 +38,7 @@ const addTicket = async (req, res) => {
         tickets: tickets
       });
 
-      console.log('new ticket:', newTicket);
+      // console.log('new ticket:', newTicket); 
 
       res.status(201).json({
         status: 'Success',
@@ -59,7 +58,7 @@ const getTicketsForUser = async (req, res) => {
   try {
 
     const userId = req.params.userId;
-    console.log(userId);
+    // console.log(userId);
 
     const ticket = await Ticket.findOne({ user: userId })
       .populate({
@@ -89,13 +88,6 @@ const processPaymentAddToHistory = async (req, res) => {
     
     let userTicket = await Ticket.findOne({ user: userId });
 
-    if(!userTicket) {
-      return res.status(404).json({
-        status: 'Fail',
-        message: 'Cannot find user ticket'
-      });
-    };
-
     const ticketsHistory = await TicketHistory.findOne({ user: userId });
 
     if (!ticketsHistory) {
@@ -104,11 +96,6 @@ const processPaymentAddToHistory = async (req, res) => {
         historyTickets: [],
       });
     };
-
-    const newTickets = userTicket.tickets.map((ticket) => ({
-      event: ticket.event,
-      quantity: ticket.quantity
-    }))
 
     ticketsHistory.historyTickets.push(...userTicket.tickets);
 
