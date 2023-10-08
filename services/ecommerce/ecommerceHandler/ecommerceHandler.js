@@ -1,30 +1,34 @@
-const Ticket = require('../../../pkg/ecommerce/ecommerceSchema');
+const Cart = require('../../../pkg/ecommerce/ecommerceCart');
 const TicketHistory = require('../../../pkg/ecommerce/ecommerceSchemaHistory');
 
 const addTicket = async (req, res) => {
   try {
     const { user, tickets } = req.body;
 
-    console.log(user);
+    console.log('user:', user); 
+    console.log('tickets:', tickets);
 
-    const loggedUser = await Ticket.findOne({ user });
+    const loggedUser = await Cart.findOne({ user });
 
     // console.log(loggedUser);
  
     if (loggedUser) {
 
-      const newTicketEvents = tickets.map((ticket) => ticket.event);
-
-      const filterTicketEvents = loggedUser.tickets.filter((filteredEvents)=> !newTicketEvents.includes(filteredEvents.event));
-
-      filterTicketEvents.push(...tickets);
-
-      loggedUser.tickets = filterTicketEvents;
+      for (const newTicket of tickets) {
+        const existingTicket = loggedUser.tickets.find((cartTicket) =>
+          cartTicket.event._id.toString() === newTicket.event.toString()
+        )
+        if (existingTicket) {
+          existingTicket.quantity = Number(existingTicket.quantity) + Number(newTicket.quantity);
+        } else {
+          loggedUser.tickets.push(newTicket);
+        }
+        // console.log ('existing tickets:', existingTicket);
+      };
 
       await loggedUser.save();
 
-      // console.log('saved logged user:', loggedUser);
-
+      
       res.status(201).json({
         status: 'Success',
         data: {
@@ -33,16 +37,14 @@ const addTicket = async (req, res) => {
       });
 
     } else {
-      const newTicket = await Ticket.create({
+      const newCart = await Cart.create({
         user: user,
         tickets: tickets
       });
 
-      // console.log('new ticket:', newTicket); 
-
       res.status(201).json({
         status: 'Success',
-        tickets: newTicket
+        tickets: newCart
       });
     };
 
@@ -60,7 +62,7 @@ const getTicketsForUser = async (req, res) => {
     const userId = req.params.userId;
     // console.log(userId);
 
-    const ticket = await Ticket.findOne({ user: userId })
+    const ticket = await Cart.findOne({ user: userId })
       .populate({
         path: 'tickets.event',
         model: 'event',
@@ -86,9 +88,9 @@ const processPaymentAddToHistory = async (req, res) => {
   try {
     const userId = req.body.userId;
     
-    let userTicket = await Ticket.findOne({ user: userId });
+    let userTicket = await Cart.findOne({ user: userId });
 
-    const ticketsHistory = await TicketHistory.findOne({ user: userId });
+    let ticketsHistory = await TicketHistory.findOne({ user: userId });
 
     if (!ticketsHistory) {
       ticketsHistory = await TicketHistory.create({ 
@@ -96,6 +98,7 @@ const processPaymentAddToHistory = async (req, res) => {
         historyTickets: [],
       });
     };
+
 
     ticketsHistory.historyTickets.push(...userTicket.tickets);
 
@@ -120,33 +123,37 @@ const processPaymentAddToHistory = async (req, res) => {
   }
 };
  
-const getLastestTickets = async (req, res) => {
-  try { 
+const getPurchasedTickets = async (req, res) => {
+  try {
     const userId = req.params.userId;
 
-    const latestTickets = await TicketHistory.findOne({ user: userId })
+    const purchasedTickets = await TicketHistory.findOne({ user: userId })
       .populate({
         path: 'historyTickets.event',
         model: 'event',
         select: '-relatedActs'
       });
 
-    if (!latestTickets || !latestTickets.historyTickets.length) {
-      return res.status(404).json({
-        status: 'Fail',
-        message: 'No tickets found for that user'
-      });
-    };
+    const systemTime = new Date().getTime();
+    const timeWindow = 10 * 1000;
+    const toleranceForBying = systemTime - timeWindow;
 
-    latestTickets.historyTickets.sort((a, b) => b.timeStamp - a.timeStamp);
+    // console.log('tolerance for bying:', toleranceForBying);
+    // console.log('system time:', systemTime);
 
-    const mostLatestTickets = latestTickets.historyTickets[0].timeStamp;
-    const mostLatestEvents = latestTickets.historyTickets.filter((event) => event.timeStamp === mostLatestTickets);
+    const currPurchasedTickets = purchasedTickets.historyTickets.filter((ticket) => {
+      // console.log('ticket timestamp:', ticket.timeStamp);
+      return ticket.timeStamp >= toleranceForBying
+    });
+
+    // console.log('filtered tickets:', currPurchasedTickets);
+
+    currPurchasedTickets.sort((a, b) => b.timeStamp - a.timeStamp);
 
     res.status(200).json({
       status: 'Success',
       data: {
-        mostLatestEvents
+        purchasedTickets: currPurchasedTickets
       }
     });
 
@@ -162,7 +169,7 @@ const getAllTicketsHistoryOfUser = async (req, res) => {
   try {
     const userId = req.params.userId;
 
-    console.log(userId);
+    // console.log(userId);
 
     const findAllTickets = await TicketHistory.findOne({ user: userId })
       .populate({
@@ -178,12 +185,14 @@ const getAllTicketsHistoryOfUser = async (req, res) => {
       });
     }
 
-    findAllTickets.historyTickets.sort((a, b) => b.timeStamp - a.timeStamp);
+    const sortTicketsDate = [...findAllTickets.historyTickets].sort((a, b) => b.timeStamp - a.timeStamp);
+
+    // console.log(sortTicketsDate);
 
     res.status(200).json({
-      status: 'Sucess',
+      status: 'Success',
       data: {
-        findAllTickets
+        sortTicketsDate
       }
     });
 
@@ -196,27 +205,31 @@ const getAllTicketsHistoryOfUser = async (req, res) => {
 };
 
 
-const removeEventfromTicket = async (req, res) => {
+const removeTicketFromCart = async (req, res) => {
   try {
-    const ticketId = req.params.ticketId;
-    console.log('ticket ID:', ticketId);
-    const eventToRemove = req.params.eventToRemove;
-    console.log('event to remove:', eventToRemove);
+    const cartId = req.params.cartId;
+    console.log('cart id:', cartId);
+    const ticketRemove = req.params.ticketRemove;
+    console.log('event to remove:', ticketRemove);
 
-    const ticket = await Ticket.findById(ticketId);
+    const cart = await Cart.findById(cartId);
 
-    if(!ticket) {
+    if(!cart) {
       return res.status(404).json({
         status: 'Fail',
-        message: 'Ticket not found'
+        message: 'Cart not found'
       });
     }
 
-    const eventIndex = ticket.tickets.findIndex((event) => event._id === eventToRemove);
+    console.log('current tickets:', cart.tickets);
 
-    ticket.tickets.splice(eventIndex, 1);
+    cart.tickets = cart.tickets.filter((ticket) => 
+      ticket.event._id.toString() !== ticketRemove.toString()
+    );
 
-    await ticket.save();
+    console.log('updated cart:', cart.tickets);
+
+    await cart.save();
 
     res.status(204).json({
       status: 'Success',
@@ -233,9 +246,9 @@ const removeEventfromTicket = async (req, res) => {
 
 module.exports = {
   addTicket,
-  removeEventfromTicket,
+  removeTicketFromCart,
   getTicketsForUser,
-  getLastestTickets,
+  getPurchasedTickets,
   processPaymentAddToHistory,
   getAllTicketsHistoryOfUser
 }

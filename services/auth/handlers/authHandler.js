@@ -49,7 +49,7 @@ const login = async (req, res) => {
 
     const isPasswordValid = bcryptjs.compareSync(password, user.password);
 
-    if(!isPasswordValid) return res.status(400).send('Invalid email or password');
+    if(!isPasswordValid) return res.status(402).send('Invalid email or password');
 
     const token = jwt.sign({ 
       id: user._id,

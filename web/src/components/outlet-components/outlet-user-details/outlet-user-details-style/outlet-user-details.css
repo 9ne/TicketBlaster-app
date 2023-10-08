@@ -5,7 +5,7 @@
 
 #outlet-user-details {
   max-width: 37.42rem;
-  margin-top: 4.57rem;
+  margin: 4.57rem 0;
 }
 
 .outlet-user-details {
@@ -116,7 +116,7 @@
   margin-top: -0.1rem;
 }
 
-.submit-bottom-form-top{
+.submit-bottom-form-top {
   display: inline-block;
   height: 3rem;
   width: 9.14rem;
@@ -209,5 +209,9 @@
   left: 56%;
   color: #cb0000;
   font-size: 0.8rem;
+}
+
+.outlet-users-password-form {
+  margin-bottom: 6.5rem;
 }
 

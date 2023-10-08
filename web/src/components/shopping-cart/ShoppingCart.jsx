@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../../Context/AuthContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './cart-style/cart-style.css';
 import axios from 'axios';
 
@@ -8,15 +8,16 @@ export const ShoppingCart = () => {
   const [addedTickets, setAddedTickets] = useState([]);
   const { userId } = useContext(AuthContext);  
   const [ticketId, setTicketId] = useState('');
+  const navigate = useNavigate();
 
   const currentTickets = async () => {
     try {
       const response = await axios.get(`/api/v1/ecommerce/get-tickets-user/${userId}`);
-      setAddedTickets(response.data.data.ticket.tickets)
-      // console.log(response);
+      setAddedTickets(response.data.data.ticket.tickets);
+      console.log(response);
+      // console.log(response.data.data.ticket.tickets);
       setTicketId(response.data.data.ticket._id);
-      
-      
+      // console.log(response.data.data.ticket._id);
     } catch(err) {  
       console.log(err);
     }
@@ -28,7 +29,10 @@ export const ShoppingCart = () => {
     try {
       const response = await axios.delete(`api/v1/ecommerce/delete-event-from-cart/${ticketId}/${eventToRemoveId}`);
       console.log(response);
-      window.location.reload();
+      setAddedTickets((prevTickets) =>
+        prevTickets.filter((ticket) => ticket.event._id !== eventToRemoveId)
+      );
+      // navigate('/shopping-cart');
     } catch(err) {
       console.log(err);
     }
@@ -44,7 +48,7 @@ export const ShoppingCart = () => {
 
   useEffect(() => {
     currentTickets();
-  }, []);
+  }, [navigate]);
 
   return (
     <div id="shopping-cart">

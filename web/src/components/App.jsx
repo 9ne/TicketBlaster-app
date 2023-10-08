@@ -53,7 +53,7 @@ export const App = () => {
           <Route path='/purchase-complete' element={<PurchaseComplete/>}></Route>
         </Routes>
       </div>
-      {/* <Footer/> */}
+      <Footer/>
     </div>
   );
 };

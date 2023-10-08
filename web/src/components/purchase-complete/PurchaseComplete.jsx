@@ -18,17 +18,28 @@ export const PurchaseComplete = () => {
 
   const getRecentPurchasedTickets = async () => {
     try {
-      const response = await axios.get(`/api/v1/ecommerce/get-latest-tickets/${userId}`);
-      // console.log(response); 
-      setPurchasedItems(response.data.data.mostLatestEvents);
+      const response = await axios.get(`/api/v1/ecommerce/get-purchased-tickets/${userId}`);
+      console.log(response); 
+      setPurchasedItems(response.data.data.purchasedTickets);
+      console.log(response.data.data.purchasedTickets);
     } catch(err) {
       console.log(err);
     }
-  }
+  };
 
-  useEffect(() => {
-    getRecentPurchasedTickets();
-  }, [])
+  
+  // const currentTickets = async () => {
+  //   try {
+  //     const response = await axios.get(`/api/v1/ecommerce/get-tickets-user/${userId}`);
+  //     setAddedTickets(response.data.data.ticket.tickets);
+  //     console.log(response);
+  //     console.log(response.data.data.ticket.tickets);
+  //     setTicketId(response.data.data.ticket._id);
+  //     console.log(response.data.data.ticket._id);
+  //   } catch(err) {  
+  //     console.log(err);
+  //   }
+  // };
 
   const calculateTotalPrice = (ticket) => {
     const quantity = ticket.quantity;
@@ -37,6 +48,10 @@ export const PurchaseComplete = () => {
     const priceNumber = Number(priceSplited[1]);
     return quantity * priceNumber;
   };
+
+  useEffect(() => {
+    getRecentPurchasedTickets();
+  }, [])
 
   return (
     <div id="purchase-complete">

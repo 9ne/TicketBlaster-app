@@ -89,7 +89,7 @@ const promoteDemote = async (req, res) =>  {
         status: 'Fail',
         message: 'User not found'
       });
-    }
+    };
 
     const newRole = user.role === 'admin' ? 'user' : 'admin';
 

@@ -1,6 +1,6 @@
 #checkout {
   max-width: 86.7rem;
-  margin: 3.57rem auto;
+  margin: 3.57rem auto 3.57rem auto;
 }
 
 .checkout-image {
@@ -91,6 +91,21 @@
 
 .checkout-flex-right {
   width: 25.5rem;
+  position: relative;
+}
+
+.checkout-form-expires {
+  position: relative;
+}
+
+.checkout-form-expires i {
+  position: absolute;
+  top: 3.6rem;
+  right: 1.5rem;
+}
+
+.checkout-form-expires input::-webkit-calendar-picker-indicator {
+  opacity: 0;
 }
 
 .checkout-form label {
@@ -107,6 +122,8 @@
   border: 1px solid #000;
   outline: none;
   margin-bottom: 16px;
+  font-size: 1.2rem;
+  padding: 0 1.5rem 0 1rem;
 }
 
 .checkout-buttons-flex {
@@ -126,6 +143,7 @@
   font-size: 1.1rem;
   margin-bottom: 3rem;
   transition: all 0.2s ease;
+  cursor: pointer;
 }
 
 .checkout-back-button {
@@ -148,6 +166,30 @@
 
 .checkout-pay-button {
   background-color: #FF269B;
+}
+
+/* form erorrs */
+
+.checkout-form-name,
+.checkout-form-card,
+.checkout-form-expires,
+.checkout-form-pin {
+  position: relative;
+}
+
+.checkout-form-expires .input-date {
+  font-family: 'Lato', sans-serif;
+} 
+
+.full-name-error,
+.card-no-error,
+.expires-error,
+.pin-error {
+  position: absolute;
+  top: 5.6rem;
+  left: 1rem;
+  font-size: 0.8rem;
+  color: #cb0000;
 }
 
 

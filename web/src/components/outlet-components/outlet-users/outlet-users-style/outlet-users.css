@@ -1,5 +1,5 @@
 #outlet-users {
-  margin-top: 3.92rem;
+  margin: 3.92rem 0;
 }
 
 .nav-link-users.active {
@@ -21,6 +21,10 @@
   padding-bottom: 1.25rem;
   margin-bottom: 1.25rem;
   border-bottom: 1px solid #d8d8d8;
+}
+
+.users-admin-flex:last-child {
+  border-bottom: none;
 }
 
 .users-admin-flex-left {
@@ -45,9 +49,13 @@
 }
 
 .users-admin-make-btn,
-.users-admin-delete-btn,.users-admin-make-user-btn {
-  width: 9.14rem;
-  height: 3rem;
+.users-admin-delete-btn,
+.users-admin-make-user-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 128px;
+  height: 42px;
   border-radius: 20px;
   font-size: 1.142rem;
 }
@@ -55,20 +63,17 @@
 .users-admin-make-btn {
   border: 2px solid #000;
   color: #FF48AB;
-  padding: 0.5rem 0 0 1.2rem;
 }
 
 .users-admin-delete-btn {
   border: 2px solid #000;
   background-color: #000;
   color: #fff;
-  padding: 0.5rem 0 0 1.4rem;
 }
 
 .users-admin-make-user-btn {
   border: 2px solid #FF48AB;
   color: #000;
-  padding: 0.5rem 0 0 1.6rem;
 }
 
 .popup-admin-make-admin,

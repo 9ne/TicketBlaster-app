@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthContext';
+import validator from 'validator';
 import axios from 'axios';
 import './login-style/login.css';
 
@@ -15,15 +16,30 @@ export const Login = () => {
   const [data, setData] = useState(initdata);
   const [loggedIn, setLoggedIn] = useState(false);
   const { loginSuccess } = useContext(AuthContext);
-  const [wrongEmailOrPassword, setWrongEmailOrPassword] = useState(false);
+  const [invalidEmailOrPassword, setInvalidEmailOrPassword] = useState(false);
+  const [provideEmailOrPassword, setProvideEmailOrPassword] = useState(false);
+  const [invalidPassword, setInvalidPassword] = useState(false);
+  const [validEmail, setValidEmail] = useState(true);
+
   const navigate = useNavigate();
 
   const dataChange = (e) => {
+    const { name, value } = e.target;
     setData({
       ...data,
-      [e.target.name]: e.target.value
+      [name]: value
     });
+
+    if (name === 'email') {
+      const isEmailValid = validator.isEmail(value);
+      setValidEmail(isEmailValid);
+    };
+
+    if (name === 'email' && value === '') {
+      setValidEmail(true);
+    }
   };
+
   
   const login = async () => {
     try {
@@ -36,13 +52,24 @@ export const Login = () => {
       navigate('/');
     } catch(err) {
       if(err.response && err.response.status === 401) {
-        setWrongEmailOrPassword(true);
+        setInvalidEmailOrPassword(true);
+      } else if (err.response && err.response.status === 400) {
+        setProvideEmailOrPassword(true);
+      } else if (err.response && err.response.status === 402) {
+        setInvalidPassword(true);
       } else {
-        setWrongEmailOrPassword(false);
-      };
+        setInvalidEmailOrPassword(false);
+        setProvideEmailOrPassword(false);
+        setInvalidPassword(false);
+      }
     };
   };
 
+  const handleLoginEnter = (e) => {
+    if (e.key === 'Enter') {
+      login();
+    };
+  };
 
   useEffect(() => {
     const isLoggedIn = localStorage.getItem('loggedIn') === 'true';
@@ -58,7 +85,7 @@ export const Login = () => {
           type="email"
           name="email"
           id="email"
-          className="input-login login-input-style"
+          className='input-login login-input-style'
           required
           value={data.email}
           onChange={dataChange}/>
@@ -70,7 +97,9 @@ export const Login = () => {
           className="input-login login-input-style"
           required
           value={data.password}
-          onChange={dataChange} />
+          onChange={dataChange}
+          onKeyDown={handleLoginEnter}
+           />
           <div className='flex-login'>
             <Link to='/forgot-password' className='link-forgot'>Forgot Password?</Link>
             <button 
@@ -82,8 +111,20 @@ export const Login = () => {
           </div>
           <Link to='/create-account' className='link-dont'>Don't have account?</Link>
       </div>
-      { wrongEmailOrPassword && 
-        <p className="show-error-message-log-in">Wrong email or password</p>
+      { invalidEmailOrPassword && 
+        <p className="show-error-message-log-in">Invalid email or password.</p>
+      }
+      {
+        provideEmailOrPassword &&
+        <p className="show-error-no-email-or-password">Please provide email and password.</p>
+      }
+      {
+        invalidPassword && 
+        <p className="show-error-wrong-password">Invalid email or password.</p>
+      }
+      {
+        !validEmail && 
+        <p className="show-error-invalid-email">Please provide a valid email address.</p>
       }
     </div>
   )

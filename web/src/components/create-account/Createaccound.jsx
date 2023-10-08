@@ -13,25 +13,11 @@ export const Createaccount = () => {
   const [emailExists, setEmailExists] = useState('');
   const [accountCreatedPopUp, setAccountCreatedPopUp] = useState(false);
 
-  const nameSplit = name.split(' ');
-  const nameAtLeastTwoWords = nameSplit.length >= 2;
-
+  const validateName = name.trim().split(' ').length >= 2;
   const validateEmail  = validator.isEmail(email) && email.toLowerCase() === email;
-
   const validatePassword = password.length > 8;
-  // const validatePassword = validator.isStrongPassword(password, {
-  //   minLength: 8,
-  // });
-
-  // console.log(password);
-  // console.log(validatePassword);
-
 
   const signUp = async () => {
-    if (!nameAtLeastTwoWords) {
-      console.log('Full name must contain at least a name and a sirname');
-      return
-    }
     try {
       const response = await axios.post('/api/v1/auth/create-account', {
         name,
@@ -45,7 +31,7 @@ export const Createaccount = () => {
         setPassword('');
         setReTypePassword('')
         setAccountCreatedPopUp(true);
-      }
+      };
 
     } catch(err) {
       console.log(err);
@@ -74,7 +60,7 @@ export const Createaccount = () => {
             onChange={(e) => setName(e.target.value)}
             required
           />
-          { name !== '' && !nameAtLeastTwoWords && (
+          { name !== '' && !validateName && (
             <p className="checking-name-sign-up">Must contain at least a name and a sirname</p>
           )}
           <label 

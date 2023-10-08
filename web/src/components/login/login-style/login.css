@@ -94,12 +94,19 @@
   color: #fff;
 }
 
-.show-error-message-log-in {
+.show-error-message-log-in,
+.show-error-no-email-or-password,
+.show-error-wrong-password,
+.show-error-invalid-email {
   position: absolute;
   top: 21.5rem;
   left: 1rem;
   font-size: 0.8rem;
   color: #cb0000;
+}
+
+.show-error-invalid-email {
+  top: 14.8rem;
 }
 
 

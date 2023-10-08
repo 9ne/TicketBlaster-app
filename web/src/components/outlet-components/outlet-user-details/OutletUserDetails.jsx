@@ -1,6 +1,6 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../../../Context/AuthContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './outlet-user-details-style/outlet-user-details.css';
 import axios from 'axios';
 
@@ -11,13 +11,24 @@ export const OutletUserDetails = () => {
   const [newEmail, setNewEmail] = useState('');
   const [password, setPassword] = useState('');
   const [reTypePassword, setReTypePassword] = useState('');
+  const [previewProfileImg, setPreviewProfileImg] = useState(null);
+  const [counter, setCounter] = useState(0);
+  const navigate = useNavigate();
 
-  const { userDefaultImg, userName, updateDefaultImg, userId } = useContext(AuthContext);
+  const { userDefaultImg, userName, updateDefaultImg, userId, isLoggedIn, userEmail } = useContext(AuthContext);
+
+  const populateUserFields = () => {
+    setNewName(userName || '');
+    setNewEmail(userEmail || '');
+  };
 
   // console.log(userId);
 
   const imageChange = (e) => {
-    setNewImage(e.target.files[0]);
+    if (e.target.files && e.target.files[0]) {
+      setPreviewProfileImg(URL.createObjectURL(e.target.files[0]))
+      setNewImage(e.target.files[0]);
+    }
   };
 
   const nameChange = (e) => {
@@ -64,7 +75,7 @@ export const OutletUserDetails = () => {
           password: password,
         });
       }
-      
+
       } catch(err) {  
     }
   };
@@ -73,23 +84,42 @@ export const OutletUserDetails = () => {
     setPasswordForm(!passwordForm);
   };
 
+  useEffect(() => {
+    if(!isLoggedIn && counter === 1) {
+      navigate('/');
+    } else {
+      setCounter(1);
+    }
+
+    populateUserFields()
+  }, [counter]);
+
   return (
     <div id="outlet-user-details">
       <div className="outlet-user-details">
         <div className="outlet-user-details-flex">
           <form className="form">
             <div className="outlet-user-details-flex-top">
-              {userDefaultImg === 'user-default.jpg' ? (
+            {previewProfileImg ? (
                 <img 
-                className="outlet-user-details-image" 
-                src={`/${userDefaultImg}`}
-                alt={userName}/>
-              ) : (
-                <img 
-                className="outlet-user-details-image" 
-                src={`/images/${userDefaultImg}` }
-                alt={userName}
+                  className="outlet-user-details-image" 
+                  src={previewProfileImg}
+                  alt={userName}
                 />
+              ) : (
+                userDefaultImg === 'user-default.jpg' ? (
+                  <img 
+                    className="outlet-user-details-image" 
+                    src={`/${userDefaultImg}`}
+                    alt={userName}
+                  />
+                ) : (
+                  <img 
+                    className="outlet-user-details-image" 
+                    src={`/images/${userDefaultImg}` }
+                    alt={userName}
+                  />
+                )
               )}
               <div className="outlet-user-details-flex-top-inner">
                 <label htmlFor="name">Full Name</label>

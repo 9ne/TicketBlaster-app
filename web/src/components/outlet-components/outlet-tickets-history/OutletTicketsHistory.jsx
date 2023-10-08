@@ -25,8 +25,8 @@ export const OutletTicketsHistory = () => {
   const getAllTickets = async () => {
     try {
       const response = await axios.get(`/api/v1/ecommerce/get-all-user-tickets-history/${userId}`);
-      setTickets(response.data.data.findAllTickets.historyTickets);
-      // console.log(response);
+      setTickets(response.data.data.sortTicketsDate);
+      console.log(response);
     } catch(err) {
       console.log(err);
     }

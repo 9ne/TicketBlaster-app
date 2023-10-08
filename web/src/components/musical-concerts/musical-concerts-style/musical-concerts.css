@@ -66,6 +66,10 @@
   margin-bottom: 0.5rem;
 }
 
+.concert-location {
+  font-weight: bold;
+}
+
 .concert-location-link {
   display: inline-block;
   font-size: 1rem;

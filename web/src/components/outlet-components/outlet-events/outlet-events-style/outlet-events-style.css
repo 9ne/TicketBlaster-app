@@ -1,5 +1,5 @@
 #outlet-events {
-  margin-top: 3.92rem;
+  margin: 3.92rem 0;
 }
 
 .events-admin-image {
@@ -16,6 +16,10 @@
   padding-bottom: 1.25rem;
   margin-bottom: 1.25rem;
   border-bottom: 1px solid #D8D8D8;
+}
+
+.events-admin-flex:last-child {
+  border-bottom: none;
 }
 
 .events-admin-flex-left {
@@ -49,13 +53,14 @@
 }
 
 .event-admin-delete-btn {
-  display: inline-block;
-  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: #000;
-  width: 9.14rem;
-  height: 3rem;
+  color: #fff;
+  width: 128px;
+  height: 42px;
   border-radius: 20px;
-  padding: .7rem 0 0 1.6rem;
 }
 
 .popup-admin {

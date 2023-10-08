@@ -120,7 +120,6 @@ export const Events = () => {
           </div>
           <Link to="/stand-up-comedy" className="link-to-all-events">See All Stand-up Comedy Shows</Link>
         </div>
-        
       </div>
     </div>
   )

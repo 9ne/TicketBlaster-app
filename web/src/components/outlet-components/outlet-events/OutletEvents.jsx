@@ -41,7 +41,7 @@ export const OutletEvents = () => {
 
   useEffect(() => {
     getEvents()
-  }, [])
+  }, []);
 
   return (
     <div id="outlet-events">

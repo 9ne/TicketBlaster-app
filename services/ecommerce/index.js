@@ -13,12 +13,12 @@ api.use(express.json());
 api.use(express.urlencoded({extended: true}));
 api.use(express.static('public'));
 
-api.post('/api/v1/ecommerce/add-ticket/', ecommerce.addTicket); // cart
+api.post('/api/v1/ecommerce/add-ticket/', ecommerce.addTicket);
 api.post('/api/v1/ecommerce/process-payment/', ecommerce.processPaymentAddToHistory);
 api.get('/api/v1/ecommerce/get-tickets-user/:userId', ecommerce.getTicketsForUser);
-api.get('/api/v1/ecommerce/get-latest-tickets/:userId', ecommerce.getLastestTickets);
+api.get('/api/v1/ecommerce/get-purchased-tickets/:userId', ecommerce.getPurchasedTickets);
 api.get('/api/v1/ecommerce/get-all-user-tickets-history/:userId', ecommerce.getAllTicketsHistoryOfUser);
-api.delete('/api/v1/ecommerce/delete-event-from-cart/:ticketId/:eventToRemove', ecommerce.removeEventfromTicket);
+api.delete('/api/v1/ecommerce/delete-event-from-cart/:cartId/:ticketRemove', ecommerce.removeTicketFromCart);
 
 api.listen(process.env.ECOMMERCE_PORT, (err) => {
   if(err) return console.log(err);

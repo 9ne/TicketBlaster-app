@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const Ticket = require('./ecommerceSchema');
 
 const ticketHistorySchema = new mongoose.Schema({
   user: {
@@ -17,7 +16,7 @@ const ticketHistorySchema = new mongoose.Schema({
       },
       timeStamp: {
         type: Date,
-        default: Date.now()
+        default: Date.now
       }
     }
   ]

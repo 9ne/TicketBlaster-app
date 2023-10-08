@@ -1,6 +1,7 @@
 #purchase-complete {
   max-width: 86.7rem;
   margin: 3.57rem auto;
+  padding-bottom: 34.3rem;
 }
 
 .purchase-complete-title {
@@ -71,6 +72,7 @@
   width: 9rem;
   height: 2.3rem;
   background-color: #000;
+  border: none;
   color: #fff;
   border-radius: 20px;
   cursor: pointer;

@@ -39,6 +39,7 @@ export const SearchEvents = () => {
       updatedSearchQuery(localQuery);
       searchedEvents();
     } 
+    // localStorage.clear('searchQuery');
     
   }, [updatedSearchQuery]);
 
