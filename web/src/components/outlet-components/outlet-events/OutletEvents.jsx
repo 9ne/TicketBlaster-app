@@ -51,7 +51,12 @@ export const OutletEvents = () => {
             return(
             <div key={i} className="events-admin-flex">
               <div className="events-admin-flex-left">
-                <img src={`/images/${event.image}`} alt={event.name} className="events-admin-image" />
+                <div className="update-event-link">
+                  <Link to={`/user/update-event/${event._id}`} className="update-event-link">
+                    <img src={`/images/${event.image}`} alt={event.name} className="events-admin-image" />
+                    <p className="update-event-text">Update Event</p>
+                  </Link>
+                </div>
                 <div className="events-admin-flex-left-content">
                   <p className="events-admin-name">{event.name}</p>
                   <div className="events-admin-flex-left-content-date-location">

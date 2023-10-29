@@ -207,7 +207,7 @@ export const Checkout = () => {
               <div className="checkout-form-expires">
                 <label name="expires">Expires</label>
                 <input 
-                  type="date" 
+                  type="month" 
                   name="expires" 
                   id="expires"
                   value={expires}

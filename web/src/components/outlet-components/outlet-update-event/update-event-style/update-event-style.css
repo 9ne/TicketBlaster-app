@@ -1,30 +1,30 @@
-#create-event {
+#update-event {
   max-width: 81.5rem;
   margin: 2.5rem 5.2rem 5.2rem 0;
 }
 
-.create-event-form {
+.update-event-form {
   display: flex;
   flex-direction: column;
 }
 
-.create-event-flex {
+.update-event-flex {
   display: flex;
   gap: 2.5rem;
 }
 
-.create-event-flex-left {
+.update-event-flex-left {
   display: flex;
   flex-direction: column;
 }
 
-.label-event-name {
+.udate-event-name {
   font-size: 1.2rem;
   font-weight: bold;
   margin-bottom: 0.85rem;
 }
 
-.input-create-event-name {
+.input-update-event-name {
   width: 25.5rem;
   height: 3rem;
   font-size: 1.2rem;
@@ -34,11 +34,12 @@
   border: 1px solid #000;
   margin-bottom: 2.2rem;
 }
-.create-event-flex-upload-image input {
+
+.update-event-flex-upload-image input {
   display: none;
 }
 
-.create-event-label-file {
+.update-event-label-file {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -52,11 +53,11 @@
   margin-bottom: 1.5rem;
 }
 
-.create-event-preview-image-inner {
+.update-event-preview-image-inner {
   position: relative;
 }
 
-.create-event-image-preview-art {
+.update-event-image-preview-art {
   width: 25.5rem;
   height: 15rem;
   border-radius: 20px;
@@ -65,7 +66,7 @@
   background-color: rgba(138, 138, 138, 0.1);
 }
 
-.create-event-preview-image-inner-text {
+.update-event-preview-image-inner-text {
   color: #393939;
   font-size: 1.2rem;
   font-weight: bold;
@@ -76,42 +77,42 @@
   z-index: -1;
 }
 
-.create-event-flex-right {
+.update-event-flex-right {
   display: flex;
   flex-direction: column;
 }
 
-.create-event-flex-right-options-flex {
+.update-event-flex-right-options-flex {
   display: flex;
   justify-content: space-between;
   gap: 2.5rem;
   position: relative;
 }
 
-.create-event-flex-right-options-flex-top-left {
+.update-event-flex-right-options-flex-top-left {
   display: flex;
   flex-direction: column;
   position: relative;
 }
 
-.create-event-flex-right-options-flex input {
+.update-event-flex-right-options-flex-top-left input {
   display: block;
 }
 
-.create-event-category-title {
+.update-event-category-title {
   font-size: 1.2rem;
   font-weight: bold;
   margin-bottom: 0.85rem;
 }
 
-.create-event-date-title {
+.update-event-date-title {
   display: block;
   font-size: 1.2rem;
   font-weight: bold;
   margin-bottom: 0.85rem;
 }
 
-.select-category {
+.update-select-category {
   font-size: 1.2rem;
   width: 25.5rem;
   height: 3rem;
@@ -122,19 +123,19 @@
   appearance: none;
 }
 
-.arrow-1 {
+.update-arrow-1 {
   position: absolute;
   right: 2.1rem;
   bottom: 1rem;
 }
 
-.arrow-2 {
+.update-arrow-2 {
   position: absolute;
   right: 2.1rem;
   bottom: 1rem;
 }
 
-.create-event-date {
+.update-event-date {
   font-size: 1.2rem;
   color: #000;
   width: 25.5rem;
@@ -148,18 +149,18 @@
   font-family: 'Lato', sans-serif;
 }
 
-.create-event-date::-webkit-calendar-picker-indicator {
+.update-event-date::-webkit-calendar-picker-indicator {
   opacity: 0;
 }
 
-.create-event-event-details-title {
+.update-event-details-title {
   font-size: 1.2rem;
   font-weight: bold;
   display: block;
   margin: 2.2rem 0 0.85rem 0;
 }
 
-.create-event-textarea {
+.update-event-textarea {
   font-family: 'Lato', sans-serif;
   font-size: 1.2rem;
   padding: 1rem;
@@ -169,35 +170,42 @@
   border-radius: 20px;
   outline: none;
   margin-bottom: 1.2rem;
+  z-index: 1;
 }
 
-.create-event-textarea::-webkit-scrollbar {
+.update-event-textarea::-webkit-scrollbar {
   border-radius: 20px;
   width: 5px;
   margin-right: 2rem;
   background-color: transparent;
 }
 
-.create-event-textarea::-webkit-scrollbar-track {
+.update-event-textarea::-webkit-scrollbar-track {
   box-shadow: inset 0 0 10px #ccc;
   border-radius: 20px;
   margin-top: 13px;
   margin-bottom: 13px;
 }
 
-.create-event-textarea::-webkit-scrollbar-thumb {
+.update-event-textarea::-webkit-scrollbar-thumb {
   border-radius: 20px;
   background-color: #FF48AB;
 }
 
-.create-event-ticket-price-title {
+.update-event-flex-right-ticket-price-location {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.update-event-ticket-price-title {
   font-size: 1.2rem;
   font-weight: bold;
   display: block;
   margin-bottom: 0.85rem;
 }
 
-.create-event-ticket-price-input {
+.update-event-ticket-price-input {
   width: 25.5rem;
   height: 3rem;
   font-size: 1.2rem;
@@ -207,24 +215,36 @@
   outline: none;
 }
 
-.related-events {
-  display: flex;
-  flex-direction: column;
-}
-
-.related-events-title {
+.update-event-location-title {
   font-size: 1.2rem;
   font-weight: bold;
-  margin: 2.8rem 0 0.85rem 0;
+  display: block;
+  margin-bottom: 0.85rem;
 }
 
-.related-events-option {
+.update-event-location-input {
+  width: 25.5rem;
+  height: 3rem;
+  font-size: 1.2rem;
+  padding: 0 0 0 1rem;
+  border: 1px solid #000;
+  border-radius: 20px;
+  outline: none;
+}
+
+.update-event-related-events-option {
   display: flex;
   gap: 1.35rem;
   position: relative;
 }
 
-.select-related {
+.update-event-related-events-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 2.8rem 0 0.85rem 0;
+}
+
+.update-event-related {
   width: 25.5rem;
   height: 3rem;
   border: 1px solid #000;
@@ -236,13 +256,13 @@
   margin-bottom: 3.14rem;
 }
 
-.arrow-3 {
+.arrow-3-update {
   position: absolute;
   top: 1rem;
   right: 58rem;
 }
 
-.related-events-add-button {
+.update-related-events-add-button {
   width: 8.2rem;
   height: 3rem;
   border: 1px solid #000;
@@ -253,53 +273,42 @@
   font-size: 1.14rem;
 }
 
-.no-Category {
-  display: inline-block;
-  position: absolute;
-  left: 1rem;
-  top: 3.2rem;
-  font-size: 0.8rem;
-  color: #cb0000;
-}
-
-#related-events {
+#update-related-events {
   display: flex;
   align-items: center;
   gap: 2.21rem;
   margin-bottom: 7.2rem;
 }
 
-
-.related-events-img {
+.update-related-events-img {
   width: 14.2rem;
   height: 10.9rem;
   object-fit: cover;
   border-radius: 20px;
 }
 
-.related-events-flex-right {
+.update-related-events-inner-flex {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  gap: 20px;
 }
 
-.related-events-name {
+.update-related-events-name {
   font-size: 1.7rem;
   font-weight: bold;
 }
 
-.related-events-date {
+.update-related-events-date {
   font-size: 1.2rem;
   font-weight: bold;
   color: #FF48AB;
 }
 
-.related-events-location {
+.update-related-events-location {
   font-weight: bold;
   font-size: 1rem;
 }
 
-.remove-related-event-added-button {
+.update-remove-related-events-added-button {
   width: 9.14rem;
   height: 2.3rem;
   display: flex;
@@ -313,15 +322,13 @@
   cursor: pointer;
 }
 
-.cant-add-more-events,
-.cant-add-same-events {
-  display: inline-block;
-  margin-left: .5rem;
-  font-size: 0.8rem;
-  color: #cb0000;
+.update-related-events-flex-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.save-create-event {
+.update-save-event {
   align-self: flex-end;
   display: flex;
   align-items: center;
@@ -336,39 +343,15 @@
   cursor: pointer;
 }
 
-
-.create-event-flex-right-ticket-price-location {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.create-event-location-title {
-  font-size: 1.2rem;
-  font-weight: bold;
-  display: block;
-  margin-bottom: 0.85rem;
-}
-
-.create-event-location-input {
-  width: 25.5rem;
-  height: 3rem;
-  font-size: 1.2rem;
-  padding: 0 0 0 1rem;
-  border: 1px solid #000;
-  border-radius: 20px;
-  outline: none;
-}
-
- .related-events-flex {
-  display: flex;
-  gap: 20px;
- }
-
- .error-create-date-message {
+.error-date-message {
   position: absolute;
   left: 29.3rem;
   top: 5.7rem;
   font-size: 0.8rem;
   color: #cb0000;
- }
+}
+
+
+
+
+

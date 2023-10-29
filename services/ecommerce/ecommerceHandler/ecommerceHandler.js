@@ -9,15 +9,16 @@ const addTicket = async (req, res) => {
     console.log('tickets:', tickets);
 
     const loggedUser = await Cart.findOne({ user });
-
     // console.log(loggedUser);
  
     if (loggedUser) {
 
       for (const newTicket of tickets) {
-        const existingTicket = loggedUser.tickets.find((cartTicket) =>
-          cartTicket.event._id.toString() === newTicket.event.toString()
-        )
+        const existingTicket = loggedUser.tickets.find((cartTicket) => {
+          cartTicket.event._id.toString() === newTicket.event.toString();
+          // console.log(typeof cartTicket.event._id);
+          // console.log(typeof newTicket.event);
+        })
         if (existingTicket) {
           existingTicket.quantity = Number(existingTicket.quantity) + Number(newTicket.quantity);
         } else {

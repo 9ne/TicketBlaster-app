@@ -19,6 +19,7 @@ import { ShoppingCart } from './shopping-cart/ShoppingCart';
 import { Checkout } from './checkout/Checkout';
 import { PurchaseComplete } from './purchase-complete/PurchaseComplete';
 import { OutletUserDetails } from './outlet-components/outlet-user-details/OutletUserDetails';
+import { UpdateEvent } from './outlet-components/outlet-update-event/UpdateEvent';
 import { AuthContext } from '../Context/AuthContext';
 
 
@@ -47,6 +48,7 @@ export const App = () => {
             )}
             <Route path='tickets-history' element={<OutletTicketsHistory/>}></Route>
             <Route path='user-details' element={<OutletUserDetails/>}></Route>
+            <Route path='update-event/:id' element={<UpdateEvent/>}></Route>
           </Route>
           <Route path='/shopping-cart' element={<ShoppingCart/>}></Route>
           <Route path='/checkout' element={<Checkout/>}></Route>

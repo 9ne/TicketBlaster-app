@@ -116,3 +116,28 @@
   padding: 0.6rem 0 0 3.4rem;
   border-radius: 20px;
 }
+
+.update-event-link {
+  position: relative;
+}
+
+.update-event-text {
+  color: #000;
+  font-weight: bold;
+  font-size: 1.2rem;
+  position: absolute;
+  left: 14%;
+  bottom: 210%;
+  display: none;
+  transition: all 0.1s ease;
+}
+
+.update-event-link:hover .events-admin-image {
+  opacity: 0.3;
+  transition: all 0.2s ease;
+}
+
+.update-event-link:hover .update-event-text {
+  display: block;
+}
+

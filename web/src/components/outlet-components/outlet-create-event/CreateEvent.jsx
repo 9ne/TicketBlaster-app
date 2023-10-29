@@ -29,7 +29,14 @@ export const CreateEvent = () =>  {
   };
 
   const eventDataDate = (e) => {
-    setEventData({...eventData, date: e.target.value});
+    const selectedDate = new Date(e.target.value);
+    const currentDate = new Date();
+    if (selectedDate < currentDate) {
+      document.getElementById('date-error-create').innerText = 'Cannot select past time.';
+    } else {
+      document.getElementById('date-error-create').innerText = '';
+    }
+    setEventData({ ...eventData, date: e.target.value });
   };
 
   const eventDataDetails = (e) => {
@@ -110,17 +117,11 @@ export const CreateEvent = () =>  {
   const createEvent = async () => {
     try {
       // console.log(eventData.date);
-      const formatDate = new Date(eventData.date);
-      const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-      'August', 'September', 'October', 'November', 'December'];
-
-      const formatedDate = `${months[formatDate.getMonth()]} ${formatDate.getDate()}, ${formatDate.getFullYear()}`;
-
       const formData = new FormData();
       formData.append('image', selectedImage);
       formData.append('name', eventData.name);
       formData.append('category', eventData.category);
-      formData.append('date', formatedDate);
+      formData.append('date', eventData.date);
       formData.append('location', eventData.location);
       formData.append('eventDetails', eventData.eventDetails);
       formData.append('price', eventData.price);
@@ -210,6 +211,7 @@ export const CreateEvent = () =>  {
                   onChange={eventDataDate}
                   className="create-event-date"
                 />
+                <p id="date-error-create" className="error-create-date-message"></p>
               </div>
               <i className="fa-solid fa-caret-down arrow-2"></i>
             </div>
@@ -219,7 +221,7 @@ export const CreateEvent = () =>  {
                 className="create-event-event-details-title"
                 >
                   Event Details
-                </label>
+              </label>
               <textarea 
                 name="eventDetails" 
                 id="eventDetails" 
