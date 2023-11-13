@@ -6,6 +6,7 @@ import { SearchEvents } from './search-events/SearchEvents';
 import { Footer } from './footer/Footer';
 import { Login } from './login/Login';
 import { Forgot } from './forgot-password/Forgot';
+import { ResetPassword } from './reset-password/ResetPassword';
 import { Createaccount } from './create-account/Createaccound';
 import { Concerts } from './musical-concerts/Concerts';
 import { StandUp } from './stand-up-comedy/StandUp';
@@ -32,9 +33,14 @@ export const App = () => {
         <Routes>
           <Route path='/' element={<Events/>}></Route>
           <Route path='/events' element={<SearchEvents></SearchEvents>}></Route>
-          <Route path='/login' element={<Login/>}></Route>
-          <Route path='/forgot-password' element={<Forgot/>}></Route>
-          <Route path='/create-account' element={<Createaccount/>}></Route>
+          {!isLoggedIn && (
+            <>
+              <Route path='/login' element={<Login/>}></Route>
+              <Route path='/forgot-password' element={<Forgot/>}></Route>
+              <Route path='/reset-password/:token' element={<ResetPassword></ResetPassword>}></Route>
+              <Route path='/create-account' element={<Createaccount/>}></Route>
+            </>
+          )}
           <Route path='/musical-concerts' element={<Concerts/>}></Route>
           <Route path='/stand-up-comedy' element={<StandUp/>}></Route>
           <Route path='/event/:id' element={<Event/>}></Route>

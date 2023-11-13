@@ -5,9 +5,23 @@ import axios from 'axios';
 import './admin-user-style/admin-user.css';
  
 export const AdminUser = () => {
-
   const { logOut, userRole } = useContext(AuthContext);
   const location = useLocation();
+  const [title, setTitle] = useState('');
+
+  const getTitle = () =>  {
+    const path = location.pathname.split('/')[2];
+    if (path === 'events' || path === 'create-event') {
+      setTitle('Events');
+    } else if (path === 'users') {
+      setTitle('Users') 
+    } else if (path === 'tickets-history') {
+      setTitle('Tickets History') 
+    } else if (path === 'user-details') {
+      setTitle('User Details')
+    };
+  };
+  
   const navigate = useNavigate();
   const [createEventButton, setCreateEventButton] = useState(false);
 
@@ -32,15 +46,20 @@ export const AdminUser = () => {
 
   useEffect(() => {
     navigate('/user/user-details');
-  }, [userRole])
+  }, [userRole]);
+
+  useEffect(() => {
+    getTitle()
+  }, [location])
 
   return(
     <div id="admin-user">
       <div className="flex-admin-user">
         <div className="flex-admin-user-left">
-          { userRole === 'user' && <h2 className="user-tickets-history">Tickets History</h2> }
-          { userRole === 'admin' && <h2 className="admin-events">Events</h2> }
-          { userRole === 'admin' && !createEventButton && (
+          {/* { userRole === 'user' && <h2 className="user-tickets-history">Tickets History</h2> }
+          { userRole === 'admin' && <h2 className="admin-events">Events</h2> } */}
+          <h2 className='dynamic-title'>{title}</h2>
+          { userRole === 'admin' && !createEventButton && location.pathname.split('/')[2] === 'events' && (
             <NavLink 
               to='/user/create-event' 
               className={`create-event-admin-btn`}

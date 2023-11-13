@@ -15,7 +15,7 @@ const addTicket = async (req, res) => {
 
       for (const newTicket of tickets) {
         const existingTicket = loggedUser.tickets.find((cartTicket) => {
-          cartTicket.event._id.toString() === newTicket.event.toString();
+          return cartTicket.event._id.toString() === newTicket.event.toString();
           // console.log(typeof cartTicket.event._id);
           // console.log(typeof newTicket.event);
         })
@@ -33,7 +33,8 @@ const addTicket = async (req, res) => {
       res.status(201).json({
         status: 'Success',
         data: {
-          message: 'Tickets have been updated, added to the new tickets'
+          message: 'Tickets have been updated, added to the new tickets',
+          tickets
         }
       });
 

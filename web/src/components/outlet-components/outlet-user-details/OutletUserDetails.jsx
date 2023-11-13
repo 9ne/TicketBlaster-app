@@ -56,7 +56,8 @@ export const OutletUserDetails = () => {
       if (formData.has('image') || formData.has('name') || formData.has('email')) {
         const response = await axios.patch(`/api/v1/user/update-user/${userId}`, formData);
         
-        if (response.status === 204) {
+        if (response.status === 200) {
+          alert('User has been updated');
           if (formData.has('image')) {
             updateDefaultImg(response.data.image, false);
           }
@@ -71,10 +72,14 @@ export const OutletUserDetails = () => {
   const newUserPassword = async () => {
     try {
       if (password === reTypePassword) {
-        await axios.patch(`/api/v1/user/update-user/change-password/${userId}`, {
+        const response = await axios.patch(`/api/v1/user/update-user/change-password/${userId}`, {
           password: password,
         });
-      }
+        if (response.status === 200) {
+          alert('Password has been updated');
+          setPassword('');
+        }
+      };
 
       } catch(err) {  
     }

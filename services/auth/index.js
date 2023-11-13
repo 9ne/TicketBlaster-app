@@ -23,6 +23,8 @@ api.use((req, res, next) => {
 api.post('/api/v1/auth/create-account', auth.signUp);
 api.post('/api/v1/auth/log-in', auth.login);
 api.get('/api/v1/auth/log-out', auth.logOut);
+api.post('/api/v1/auth/forgotPassword', auth.forgotPassword);
+api.patch('/api/v1/auth/reset-password/:token', auth.resetPassword);
 
 api.listen(process.env.AUTH_PORT, (err) => {
   if(err) return console.log(err);
