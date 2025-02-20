@@ -1,4 +1,4 @@
-# TicketBlaster is a full-stack web application built for seamless ticket sales and event management, catering to concerts, comedy shows, and various live events. It provides a secure and user-friendly experience for both event attendees and administrators.
+# TicketBlaster is a full-stack web application built for seamless ticket sales and event management, catering to concerts, comedy shows. It provides a secure and user-friendly experience for both event attendees and administrators.
 
 # Backend Technologies:
 # - Express.js serves as the backend framework, handling routes, API requests, and overall server functionality.
